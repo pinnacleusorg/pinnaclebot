@@ -60,5 +60,5 @@ module.exports = function(body, ...param) {
 	        }
 	    ]
 	};
-	return JSON.stringify(response);
+	return response;
 };

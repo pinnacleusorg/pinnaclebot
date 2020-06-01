@@ -17,11 +17,11 @@ class SlackBot {
 	}
 
 	handlers = {};
-	
+
 	addHandler(fn, method) {
 		this.handlers[fn] = method;
 	}
-	
+
 	callHandler(pr_acc, pr_rej, body, fn, ...param) {
 		param.unshift(body);
 		fn = fn.toLowerCase();
@@ -41,31 +41,29 @@ class SlackBot {
 		var sig = "v0:" + time + ":" + raw;
 		var fullSig = "v0=" + crypto.createHmac('sha256', this.token).update(sig).digest('hex');
 		if(crypto.timingSafeEqual(Buffer.from(fullSig), Buffer.from(req.header("X-Slack-Signature")))) {
-			if(req.originalUrl == '/handle') {
-				//determine appropriate handler ...
-				
-				var commandline = body.text;
-				var split = commandline.split(' ');
-				var accept, reject;
-				var promise = new Promise(function(acc, rej) {
-					accept = acc;
-					reject = rej;
-				});
-				split.unshift(body)
-				split.unshift(reject)
-				split.unshift(accept);
-				this.callHandler.apply(this, split);
-				
-				promise.then(function(result) {
-					//success!
-					res.status(200).send(result);
-				}).catch(function(err) {
-					console.log(err);
-					res.status(200).send("Sorry, I didn't recognize that command! Try `/p help` to get a list of commands.");
-					return;
-				});
+			//determine appropriate handler ...
+
+			var commandline = body.text;
+			var split = commandline.split(' ');
+			var accept, reject;
+			var promise = new Promise(function(acc, rej) {
+				accept = acc;
+				reject = rej;
+			});
+			split.unshift(body)
+			split.unshift(reject)
+			split.unshift(accept);
+			this.callHandler.apply(this, split);
+
+			promise.then(function(result) {
+				//success!
+				res.status(200).json(result);
+			}).catch(function(err) {
+				console.log(err);
+				res.status(200).send("Sorry, I didn't recognize that command! Try `/p help` to get a list of commands.");
 				return;
-			}
+			});
+			return;
 		} else {
 			console.log("ERR!! Invalid Signature! possible breach attempt ...");
 			res.sendStatus(404);
