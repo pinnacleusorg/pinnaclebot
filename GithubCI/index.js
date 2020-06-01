@@ -16,4 +16,4 @@ class GithubCI {
 		next();
 	}
 }
-module.exports = SlackBot;
+module.exports = GithubCI;
