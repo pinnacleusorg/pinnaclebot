@@ -4,7 +4,7 @@ const GithubCI = require('./GithubCI');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const app = express()
-const port = 8001
+const port = process.env.PORT
 
 var thisParser = new SlackBot(process.env.SLACK_TOKEN);
 var thisGithub = new GithubCI(process.env.GITHUB_SECRET);
