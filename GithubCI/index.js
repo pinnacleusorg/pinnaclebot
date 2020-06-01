@@ -1,4 +1,5 @@
 const autoBind = require('auto-bind');
+const crypto = require('crypto');
 "use strict";
 class GithubCI {
 	constructor(secret) {
