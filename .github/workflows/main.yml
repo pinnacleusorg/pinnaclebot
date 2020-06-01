@@ -13,7 +13,7 @@ jobs:
           url: https://slackbot.pinnacle.us.org/git
           method: POST
           contentType: application/json
-          data: "{secret: ${{ secrets.ci-key }}}"
+          data: "{secret: ${{ secrets.cikey }}}"
       - name: Update QA
         uses: fjogeleit/http-request-action@1.3.0
         if: github.ref == 'refs/heads/development'
@@ -21,4 +21,4 @@ jobs:
           url: https://slackbot-staging.pinnacle.us.org/git
           method: POST
           contentType: application/json
-          data: "{secret: ${{ secrets.ci-key }}}"
+          data: "{secret: ${{ secrets.cikey }}}"
