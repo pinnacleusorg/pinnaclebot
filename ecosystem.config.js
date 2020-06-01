@@ -5,6 +5,6 @@ module.exports = {
     watch: '.',
     error_file: './log/err.log',
     out_file: './log/out.log',
-    ignore_watch: 'log'
+    ignore_watch: ['log']
   }]
 };
