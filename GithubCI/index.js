@@ -1,6 +1,6 @@
 const autoBind = require('auto-bind');
 const crypto = require('crypto');
-const updateProcess = require("./exec_process.js");
+const spawn = require("child_process").spawn;
 "use strict";
 class GithubCI {
 	constructor(secret) {
@@ -20,12 +20,15 @@ class GithubCI {
 			if(branch == process.env.BRANCH) {
 				//update!!
 				console.log("got new update! should fetch");
-				updateProcess.result("git pull origin", function(err, response){
-				    if(!err) {
-				        console.log(response);
-				    } else {
-				        console.log(err);
-				    }
+				var update = spawn('git', ['pull', 'origin']);
+				update.stdout.on('data', function (data) {
+					console.log(data);
+				});
+				update.stderr.on('data', function (data) {
+					console.log(data);
+				});
+				update.on('exit', function (code) {
+					console.log(code);
 				});
 			} else {
 				console.log("update not for this branch -- ignoring ...")
