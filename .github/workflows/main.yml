@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Update Prod
         uses: fjogeleit/http-request-action@1.3.0
-        if: github.ref == 'master'
+        if: github.ref == 'refs/heads/master'
         with:
           url: https://slackbot.pinnacle.us.org/git
           method: POST
@@ -16,7 +16,7 @@ jobs:
           data: "{secret: ${{ secrets.ci-key }}}"
       - name: Update QA
         uses: fjogeleit/http-request-action@1.3.0
-        if: github.ref == 'master'
+        if: github.ref == 'refs/heads/development'
         with:
           url: https://slackbot-staging.pinnacle.us.org/git
           method: POST
