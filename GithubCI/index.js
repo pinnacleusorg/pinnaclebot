@@ -10,9 +10,13 @@ class GithubCI {
 	parse(req, res, next) {
 		//verify secret ...
 		var body = req.body;
-		var raw = req.rawBody.toString();
+		var secret = body.payload.hook.config.secret;
 		console.log(body);
-		console.log(raw);
+		if(secret == this.secret) {
+			console.log("secret ok!");
+			req.send("OK");
+			return;
+		}
 		next();
 	}
 }
