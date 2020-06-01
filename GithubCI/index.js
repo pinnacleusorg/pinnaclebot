@@ -16,7 +16,7 @@ class GithubCI {
 		var fullSig = "sha1=" + crypto.createHmac('sha1', this.secret).update(sig).digest('hex');
 		if(crypto.timingSafeEqual(Buffer.from(fullSig), Buffer.from(req.header("X-Hub-Signature")))) {
 			console.log("secret ok!");
-			var branch = body.ref.replace('refs/heads/', '');
+			var branch = body.payload.ref.replace('refs/heads/', '');
 			if(branch == process.env.BRANCH) {
 				//update!!
 				console.log("got new update! should fetch");
