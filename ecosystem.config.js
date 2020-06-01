@@ -4,6 +4,7 @@ module.exports = {
     script: 'index.js',
     watch: '.',
     error_file: './log/err.log',
-    out_file: './log/out.log'
+    out_file: './log/out.log',
+    ignore_watch: 'log'
   }]
 };
