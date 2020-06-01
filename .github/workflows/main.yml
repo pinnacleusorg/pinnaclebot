@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches: [ master, development ]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Prod
+        uses: fjogeleit/http-request-action@1.3.0
+        if: github.ref == 'master'
+        with:
+          url: https://slackbot.pinnacle.us.org/git
+          method: POST
+          contentType: application/json
+          data: "{secret: ${{ secrets.ci-key }}}"
+      - name: Update QA
+        uses: fjogeleit/http-request-action@1.3.0
+        if: github.ref == 'master'
+        with:
+          url: https://slackbot-staging.pinnacle.us.org/git
+          method: POST
+          contentType: application/json
+          data: "{secret: ${{ secrets.ci-key }}}"
