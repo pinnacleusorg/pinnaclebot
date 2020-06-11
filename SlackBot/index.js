@@ -15,7 +15,7 @@ class SlackBot {
 		});
 		normalizedPath = require("path").join(__dirname, "events");
 		fs.readdirSync(normalizedPath).forEach(function(file) {
-  			var thisFn = require("./event/" + file);
+  			var thisFn = require("./events/" + file);
  			//register
 			thisMap.addEvent(file.split('.')[0], thisFn);
 		});
