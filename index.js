@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 } }));
 
 app.use('/handle', thisParser.parse);
+app.use('/event', thisParser.eventParse);
 app.use('/git', thisGithub.parse);
 
 app.get('/', (req, res) => res.sendStatus(404))

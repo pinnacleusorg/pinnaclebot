@@ -7,7 +7,7 @@ module.exports = function(body, ...param) {
 	            "text": {
 	                "type": "plain_text",
 	                "emoji": true,
-	                "text": "Hi! Welcome to the Pinnacle Slack! Here are some commands to get you started "
+	                "text": "Hi! Welcome to the Pinnacle Slack! Here are some commands to get you started"
 	            }
 	        },
 	        {
