@@ -1,3 +1,3 @@
 module.exports = function(body) {
-	console.log("body");
+	console.log(body);
 };
