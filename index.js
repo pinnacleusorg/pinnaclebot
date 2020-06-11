@@ -9,9 +9,15 @@ const port = process.env.PORT
 var thisParser = new SlackBot(process.env.SLACK_TOKEN);
 var thisGithub = new GithubCI(process.env.GITHUB_SECRET);
 
-app.use(bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
+app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
 } }));
+
+app.use('/event', bodyParser.json({ verify: (req, res, buf) => {
+	req.rawBody = buf;
+} }));
+
+
 
 app.use('/handle', thisParser.parse);
 app.use('/event', thisParser.eventParse);
