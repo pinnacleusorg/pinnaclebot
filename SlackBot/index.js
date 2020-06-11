@@ -42,9 +42,8 @@ class SlackBot {
 		}
 	}
 	callEvent(pr_acc, pr_rej, body, fn) {
-		param.unshift(body);
 		fn = fn.toLowerCase();
-		if(fn in this.handlers) {
+		if(fn in this.eventHandlers) {
 			pr_acc(this.eventHandlers[fn].apply(this, body));
 		} else {
 			pr_rej("no event handler registered");
@@ -92,6 +91,7 @@ class SlackBot {
 	}
 	eventParse(req, res, next) {
 		//verify token ...
+		console.log(req);
 		var body = req.body;
 		var raw = req.rawBody.toString();
 		var time = req.header("X-Slack-Request-Timestamp");
