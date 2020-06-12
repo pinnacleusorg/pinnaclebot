@@ -9,6 +9,12 @@ const port = process.env.PORT
 var thisParser = new SlackBot(process.env.SLACK_TOKEN);
 var thisGithub = new GithubCI(process.env.GITHUB_SECRET);
 
+//Define Globals
+process.globals = {};
+
+process.globals.privilegedList = ['U013W1ST95H'];
+
+
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
 } }));
