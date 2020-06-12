@@ -17,6 +17,8 @@ module.exports = function(body) {
 			return "OK, message fine";
 		} else {
 			console.log("message should be deleted! non-auth'd user in auth-required channel");
+			slackref.callMethod('chat.delete', {channel: channel, ts: ts});
+			slackref.callMethod('chat.postEphemeral', {attachments: [], channel: channel, user: user, text: "Hi there! Messages are unfortunately not allowed in this channel. Instead, give a reaction! If you have a question, try #general. Thanks!"});
 			return "OK, will delete!";
 		}
 	}

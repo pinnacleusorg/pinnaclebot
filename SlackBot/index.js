@@ -1,11 +1,14 @@
 const fs = require('fs');
 const crypto = require('crypto');
 const autoBind = require('auto-bind');
+const axios = require('axios');
+
 "use strict";
 class SlackBot {
-	constructor(token) {
+	constructor(token, oauth) {
 		var thisMap = this;
 		this.token = token;
+		this.oauth = oauth;
 		//register handlers ...
 		var normalizedPath = require("path").join(__dirname, "fn");
 		fs.readdirSync(normalizedPath).forEach(function(file) {
@@ -49,6 +52,17 @@ class SlackBot {
 		} else {
 			pr_rej("no event handler registered");
 		}
+	}
+
+	callMethod(methodName, parameters) {
+		//make a query with the Slack API ...
+		console.log("Calling "+methodName+" with parameters", parameters);
+		parameters.token = this.oauth;
+		axios({
+			method: 'post',
+			url: 'https://slack.com/api/'+methodName,
+			data: parameters
+		});
 	}
 
 	parse(req, res, next) {
