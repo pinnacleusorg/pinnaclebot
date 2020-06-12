@@ -8,11 +8,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 "use strict";
 class SlackBot {
-	constructor(token, oauth) {
+	constructor(token, oauth. oauth_admin) {
 		var thisMap = this;
 		this.token = token;
 		this.oauth = oauth;
-		axios.defaults.headers.post['Authorization'] = 'Bearer ' + oauth;
+		this.oauth_admin = oauth_admin;
 		//register handlers ...
 		var normalizedPath = require("path").join(__dirname, "fn");
 		fs.readdirSync(normalizedPath).forEach(function(file) {
@@ -61,12 +61,21 @@ class SlackBot {
 	callMethod(methodName, parameters) {
 		//make a query with the Slack API ...
 		console.log("Calling "+methodName+" with parameters", parameters);
+		axios.defaults.headers.post['Authorization'] = 'Bearer ' + oauth;
+		var sudoCmds = ['chat.delete'];
+		var token = this.oauth;
+		if(sudoCmds.includes(methodName)) {
+			token = this.oauth_admin;
+		}
 		axios({
 			method: 'post',
 			url: methodName,
-			data: parameters
+			data: parameters,
+			headers: {
+				Authorization: 'Bearer '+token
+			}
 		}).then(function(res) {
-			console.log(res);
+			console.log(res.data);
 		});
 	}
 

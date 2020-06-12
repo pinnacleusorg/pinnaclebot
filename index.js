@@ -6,7 +6,7 @@ const dotenv = require('dotenv').config();
 const app = express()
 const port = process.env.PORT
 
-var thisParser = new SlackBot(process.env.SLACK_TOKEN, process.env.SLACK_OAUTH);
+var thisParser = new SlackBot(process.env.SLACK_TOKEN, process.env.SLACK_OAUTH, process.env.SLACK_ADMIN);
 var thisGithub = new GithubCI(process.env.GITHUB_SECRET);
 
 //Define Globals
