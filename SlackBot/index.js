@@ -61,7 +61,6 @@ class SlackBot {
 	callMethod(methodName, parameters) {
 		//make a query with the Slack API ...
 		console.log("Calling "+methodName+" with parameters", parameters);
-		axios.defaults.headers.post['Authorization'] = 'Bearer ' + oauth;
 		var sudoCmds = ['chat.delete'];
 		var token = this.oauth;
 		if(sudoCmds.includes(methodName)) {
