@@ -3,6 +3,9 @@ const crypto = require('crypto');
 const autoBind = require('auto-bind');
 const axios = require('axios');
 
+axios.defaults.baseURL = 'https://slack.com/api/';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 "use strict";
 class SlackBot {
 	constructor(token, oauth) {
@@ -60,7 +63,7 @@ class SlackBot {
 		parameters.token = this.oauth;
 		axios({
 			method: 'post',
-			url: 'https://slack.com/api/'+methodName,
+			url: methodName,
 			data: parameters
 		}).then(function(res) {
 			console.log(res);
