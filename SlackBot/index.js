@@ -12,6 +12,7 @@ class SlackBot {
 		var thisMap = this;
 		this.token = token;
 		this.oauth = oauth;
+		axios.defaults.headers.post['Authorization'] = 'Bearer ' + oauth;
 		//register handlers ...
 		var normalizedPath = require("path").join(__dirname, "fn");
 		fs.readdirSync(normalizedPath).forEach(function(file) {
@@ -60,7 +61,6 @@ class SlackBot {
 	callMethod(methodName, parameters) {
 		//make a query with the Slack API ...
 		console.log("Calling "+methodName+" with parameters", parameters);
-		parameters.token = this.oauth;
 		axios({
 			method: 'post',
 			url: methodName,
