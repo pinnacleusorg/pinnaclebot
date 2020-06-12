@@ -107,7 +107,9 @@ class SlackBot {
 				accept = acc;
 				reject = rej;
 			});
-			this.callEvent.apply(this, [accept, reject, body, commandline]);
+			// this.callEvent.apply(this, [accept, reject, body, commandline]);
+
+			this.callEvent(accept, reject, body, commandline);
 
 			promise.then(function(result) {
 				//success!
