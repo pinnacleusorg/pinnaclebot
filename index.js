@@ -13,8 +13,8 @@ var thisGithub = new GithubCI(process.env.GITHUB_SECRET);
 process.globals = {};
 
 process.globals.privilegedList = ['U013W1ST95H'];
-
-
+process.globals.slackbot = thisParser;
+process.globals.privilegedChannels = ['C015ABQTKRQ'];
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
 } }));
