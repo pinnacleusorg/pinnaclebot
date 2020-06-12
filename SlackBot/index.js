@@ -8,7 +8,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 "use strict";
 class SlackBot {
-	constructor(token, oauth. oauth_admin) {
+	constructor(token, oauth, oauth_admin) {
 		var thisMap = this;
 		this.token = token;
 		this.oauth = oauth;
