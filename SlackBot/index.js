@@ -62,6 +62,8 @@ class SlackBot {
 			method: 'post',
 			url: 'https://slack.com/api/'+methodName,
 			data: parameters
+		}).then(function(res) {
+			console.log(res);
 		});
 	}
 

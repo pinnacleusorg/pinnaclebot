@@ -12,9 +12,12 @@ var thisGithub = new GithubCI(process.env.GITHUB_SECRET);
 //Define Globals
 process.globals = {};
 
-process.globals.privilegedList = ['U013W1ST95H'];
-process.globals.slackbot = thisParser;
+//process.globals.privilegedList = ['U013W1ST95H'];
+process.globals.privilegedList = [];
 process.globals.privilegedChannels = ['C015ABQTKRQ'];
+
+process.globals.slackbot = thisParser;
+
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
 } }));
