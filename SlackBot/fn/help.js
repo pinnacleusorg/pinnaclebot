@@ -126,7 +126,7 @@ module.exports = function(body, ...param) {
 	print_divider(response);
 	var messageChannel = body.channel_id;
 	if(Object.keys(process.globals.teamChannels).includes(messageChannel)) {
-		print_teamCommands();
+		print_teamCommands(response);
 		print_divider(response);
 	}
 	print_supportCommands(response);
