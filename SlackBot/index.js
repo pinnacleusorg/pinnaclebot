@@ -58,7 +58,7 @@ class SlackBot {
 		}
 	}
 
-	callMethod(methodName, parameters) {
+	callMethod(methodName, parameters, resolve = "") {
 		//make a query with the Slack API ...
 		console.log("Calling "+methodName+" with parameters", parameters);
 		var sudoCmds = ['chat.delete'];
@@ -75,6 +75,9 @@ class SlackBot {
 			}
 		}).then(function(res) {
 			console.log(res.data);
+			if(typeof resolve === "function") {
+				resolve(res.data);
+			}
 		});
 	}
 

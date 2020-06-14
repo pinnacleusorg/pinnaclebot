@@ -15,7 +15,8 @@ process.globals = {};
 //process.globals.privilegedList = ['U013W1ST95H'];
 process.globals.privilegedList = [];
 process.globals.privilegedChannels = ['C015ABQTKRQ'];
-
+process.globals.welcomeChannel = 'C0148E1BQGZ';
+process.globals.userInfo = {};
 process.globals.slackbot = thisParser;
 
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
