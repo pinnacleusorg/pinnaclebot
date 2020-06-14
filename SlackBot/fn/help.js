@@ -56,9 +56,6 @@ function print_teamCommands(response) {
 		}
 	});
 	response.blocks.push({
-		"type": "divider"
-	});
-	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",

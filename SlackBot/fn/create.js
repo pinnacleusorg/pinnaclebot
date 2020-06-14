@@ -20,7 +20,7 @@ module.exports = async function(body, ...param) {
 		var teamid = "";
 		var crypto = require('crypto')
 		while(true) {
-			teamid = crypto.createHash('sha1').update(Math.random()).digest('hex').substring(0, 8);
+			teamid = crypto.createHash('sha1').update(""+Math.random()).digest('hex').substring(0, 8);
 			//double check this isn't a collision -- we probably won't need this but just in case ...
 			if(!Object.keys(process.globals.teamChannels).includes(teamid))
 				break; //teamid is unique!
