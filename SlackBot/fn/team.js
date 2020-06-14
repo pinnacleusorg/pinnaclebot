@@ -7,11 +7,18 @@ module.exports = async function(body, ...param) {
 			var setting = param.pop().toLowerCase();
 			var value = param.join(' ').trim();
 			var keysToSet = Object.keys(team);
+
+			//remove the keys we don't want to change / use internally
 			keysToSet.splice(keysToSet.indexOf('leader'), 1);
 			keysToSet.splice(keysToSet.indexOf('members'), 1);
+			keysToSet.splice(keysToSet.indexOf('pending'), 1);
+
+			if(!(setting in keysToSet)) {
+				return "The setting `"+setting+"` does not exist!";
+			}
 			if(value == "") {
 				//just report out ...
-				return {response_type: 'in_channel', text: "<@"+body.user_id+">: Current value for `"+setting+"`: `"+team[setting]+"`." };
+				return {text: "Current value for `"+setting+"`: `"+team[setting]+"`." };
 			} else {
 				//set the value ... (parse??) TODO: sanitize
 				var oldValue = team[setting];

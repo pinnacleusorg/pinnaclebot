@@ -66,7 +66,7 @@ function print_teamCommands(response) {
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p team project [name]`*\nSet the name of your team's project."
+			"text": "*`/p team title [name]`*\nSet the name of your team's project."
 		}
 	});
 	response.blocks.push({
@@ -80,6 +80,13 @@ function print_teamCommands(response) {
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
+			"text": "*`/p team dropin [0/1]`*\nTurn on \"drop-in\" mode. This means that you're OK with Pinnacle staff coming into the channel to check-in with your group."
+		}
+	});
+	response.blocks.push({
+		"type": "section",
+		"text": {
+			"type": "mrkdwn",
 			"text": "*`/p team description [...]`*\nWrite a short description for your team's project"
 		}
 	});
@@ -87,14 +94,7 @@ function print_teamCommands(response) {
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p team technologies [javascript, python, tensor, ...]`*\nWhat technologies does your project incorporate?"
-		}
-	});
-	response.blocks.push({
-		"type": "section",
-		"text": {
-			"type": "mrkdwn",
-			"text": "*`/p team technologies [javascript, python, tensor, ...]`*\nWhat technologies does your project incorporate?"
+			"text": "*`/p team tech [javascript, python, tensor, ...]`*\nWhat technologies does your project incorporate?"
 		}
 	});
 	response.blocks.push({
