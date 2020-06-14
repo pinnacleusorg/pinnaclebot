@@ -54,7 +54,7 @@ module.exports = async function(body, ...param) {
 			"devpost": "not set",
 			"lfg": 0,
 			"dropin": 1
-		}
+		};
 
 		console.log("Created team", channelCreation);
 		return "I just made your team channel, <#"+channelID+"> -- go check it out!";
