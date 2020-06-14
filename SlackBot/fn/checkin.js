@@ -1,7 +1,7 @@
 module.exports = async function(body, ...param) {
 	//User is checking in. Let's verify a few things ...
 	var thisUser = body.user_id;
-	if(process.globals.userInfo.includes(thisUser)) {
+	if(process.globals.userInfo[thisUser]) {
 		return "You're already good to go! Thanks for checking in!";
 	}
 
