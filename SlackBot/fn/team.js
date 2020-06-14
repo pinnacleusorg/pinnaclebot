@@ -1,5 +1,4 @@
 module.exports = async function(body, ...param) {
-	console.log("Make sure we're in this user's team channel ...");
 	var thisUser = process.globals.userInfo[body.user_id];
 	if(thisUser.team) {
 		if(body.channel_id == thisUser.team) {
@@ -7,7 +6,7 @@ module.exports = async function(body, ...param) {
 			var setting = param.shift().toLowerCase();
 			var value = param.join(' ').trim();
 			var keysToSet = Object.keys(team);
-			
+
 			//remove the keys we don't want to change / use internally
 			keysToSet.splice(keysToSet.indexOf('leader'), 1);
 			keysToSet.splice(keysToSet.indexOf('members'), 1);
@@ -18,7 +17,7 @@ module.exports = async function(body, ...param) {
 			}
 			if(value == "") {
 				//just report out ...
-				return {text: "Current value for `"+setting+"`: `"+team[setting]+"`." };
+				return {text: "Current value for `"+setting+"` is `"+team[setting]+"`." };
 			} else {
 				//set the value ... (parse??) TODO: sanitize
 				var oldValue = team[setting];
