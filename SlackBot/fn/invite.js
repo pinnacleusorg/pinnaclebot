@@ -10,8 +10,8 @@ module.exports = async function(body, ...param) {
 					//make sure we're not spamming invites ...
 					if(team.pending.length < 10) {
 						var getUser = param[0]; //parse string ...
-						getUser.split('@').pop().split('|')[0].trim();
-						if(getUser != "") {
+						if(getUser && getUser != "") {
+							getUser.split('@').pop().split('|')[0].trim();
 							if(!team.pending.includes(getUser)) {
 								if(process.globals.userInfo[getUser]) {
 									if(!process.globals.userInfo[getUser].team) {
