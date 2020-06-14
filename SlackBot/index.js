@@ -66,23 +66,47 @@ class SlackBot {
 		//make a query with the Slack API ...
 		console.log("Calling "+methodName+" with parameters", parameters);
 		var sudoCmds = ['chat.delete'];
+		var stupidCmds = ['users.info'];
 		var token = this.oauth;
 		if(sudoCmds.includes(methodName)) {
 			token = this.oauth_admin;
 		}
-		axios({
-			method: 'post',
-			url: methodName,
-			data: parameters,
-			headers: {
-				Authorization: 'Bearer '+token
-			}
-		}).then(function(res) {
-			console.log(res.data);
-			if(typeof resolve === "function") {
-				resolve(res.data);
-			}
-		});
+		if(stupidCmds.includes(methodName)) {
+			//use x-www-form-urlencoded for this method
+			console.log("Fallback, using url encoded for "+methodName);
+			parameters.token = token;
+			var data = Object.entries(parameters)
+			  .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
+			  .join('&');
+			console.log(data);
+			axios({
+				method: 'post',
+				url: methodName,
+				data: data,
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			}).then(function(res) {
+				console.log(res.data);
+				if(typeof resolve === "function") {
+					resolve(res.data);
+				}
+			});
+		} else {
+			axios({
+				method: 'post',
+				url: methodName,
+				data: parameters,
+				headers: {
+					Authorization: 'Bearer '+token
+				}
+			}).then(function(res) {
+				console.log(res.data);
+				if(typeof resolve === "function") {
+					resolve(res.data);
+				}
+			});
+		}
 	}
 
 	parse(req, res, next) {
