@@ -73,14 +73,14 @@ function print_teamCommands(response) {
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p team lfg [0/1]`*\nTurn on \"Looking-for-group\" mode. This lets other people find your team and join in!"
+			"text": "*`/p team lfg [0/1]`*\nTurn on \"Looking-for-group\" mode. This lets other people find your team and join in! (OFF by default)"
 		}
 	});
 	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p team dropin [0/1]`*\nTurn on \"drop-in\" mode. This means that you're OK with Pinnacle staff coming into the channel to check-in with your group."
+			"text": "*`/p team dropin [0/1]`*\nTurn on \"drop-in\" mode. This means that you're OK with Pinnacle staff coming into the channel to check-in with your group. (ON by default)"
 		}
 	});
 	response.blocks.push({

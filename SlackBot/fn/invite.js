@@ -11,7 +11,8 @@ module.exports = async function(body, ...param) {
 					if(team.pending.length < 10) {
 						var getUser = param[0]; //parse string ...
 						if(getUser && getUser != "") {
-							getUser.split('@').pop().split('|')[0].trim();
+							getUser = getUser.split('@').pop().split('|')[0].trim();
+							console.log(getUser);
 							if(!team.pending.includes(getUser)) {
 								if(process.globals.userInfo[getUser]) {
 									if(!process.globals.userInfo[getUser].team) {
@@ -22,7 +23,7 @@ module.exports = async function(body, ...param) {
 									}
 									return "<@"+getUser+"> is already in a team -- they have to leave before you can invite them.";
 								}
-								return "I don't know that user ... are they registered? They may need to do `/p hello`";
+								return "I don't know that user ... are they registered? They may need to do `/p checkin`";
 							}
 							return "You've already invited <@"+getUser+">";
 						}
