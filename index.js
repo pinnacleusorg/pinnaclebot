@@ -18,6 +18,7 @@ process.globals.privilegedChannels = ['C015ABQTKRQ'];
 process.globals.welcomeChannel = 'C0148E1BQGZ';
 process.globals.userInfo = {};
 process.globals.slackbot = thisParser;
+process.globals.teamChannels = {};
 
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
