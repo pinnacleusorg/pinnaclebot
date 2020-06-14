@@ -30,7 +30,7 @@ module.exports = async function(body, ...param) {
 		var callingUser = body.user_id
 		//TODO: danger! if we go to slow this will be sad
 		var promise = new Promise(function(resolve, reject) {
-			slackref.callMethod('conversations.create', {name: teamName, is_private: true, user_ids:callingUser}, resolve);
+			slackref.callMethod('conversations.create', {name: teamName, is_private: true, user_ids:'U013HMQAJ79,'+callingUser}, resolve);
 		}).then(function(data) {
 			channelCreation = data;
 		});
