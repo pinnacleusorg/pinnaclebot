@@ -7,12 +7,12 @@ module.exports = async function(body, ...param) {
 			var setting = param.pop().toLowerCase();
 			var value = param.join(' ').trim();
 			var keysToSet = Object.keys(team);
-
+			console.log(team, keysToSet);
 			//remove the keys we don't want to change / use internally
 			keysToSet.splice(keysToSet.indexOf('leader'), 1);
 			keysToSet.splice(keysToSet.indexOf('members'), 1);
 			keysToSet.splice(keysToSet.indexOf('pending'), 1);
-
+			console.log(keysToSet);
 			if(!(setting in keysToSet)) {
 				return "The setting `"+setting+"` does not exist!";
 			}
