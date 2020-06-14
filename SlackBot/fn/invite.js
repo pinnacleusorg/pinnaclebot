@@ -13,6 +13,7 @@ module.exports = async function(body, ...param) {
 						if(getUser && getUser != "") {
 							getUser = getUser.split('@').pop().split('|')[0].trim();
 							console.log(getUser);
+							console.log(body);
 							if(!team.pending.includes(getUser)) {
 								if(process.globals.userInfo[getUser]) {
 									if(!process.globals.userInfo[getUser].team) {
