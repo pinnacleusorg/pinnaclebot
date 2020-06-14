@@ -20,6 +20,10 @@ process.globals.userInfo = {};
 process.globals.slackbot = thisParser;
 process.globals.teamChannels = {};
 
+process.globals.preCheckin_list = ["kendall@pinnacle.us.org", "kendall+test@pinnacle.us.org"];
+//process.globals.preCheckin = {};
+
+
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
 } }));

@@ -1,15 +1,13 @@
 const crypto = require('crypto');
 
 module.exports = async function(body, ...param) {
-	console.log("Make sure we're in the right channel ...");
 	var slackref = process.globals.slackbot;
 	var welcomeChannel = process.globals.welcomeChannel;
 	if(body.channel_id == welcomeChannel) {
 		//We're creating a new welcome channel ... check a couple of things ...
 		var thisUser = process.globals.userInfo[body.user_id];
 		if(!thisUser) {
-			process.globals.userInfo[body.user_id] = {};
-			thisUser = process.globals.userInfo[body.user_id];
+			return "I don't seem to have you registered ... can you do `/p checkin`?";
 		}
 		if(thisUser.team) {
 			return "You're already in a team -- you have to leave that first before creating a new one.";
