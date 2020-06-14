@@ -78,7 +78,6 @@ class SlackBot {
 			var data = Object.entries(parameters)
 			  .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
 			  .join('&');
-			console.log(data);
 			axios({
 				method: 'post',
 				url: methodName,
