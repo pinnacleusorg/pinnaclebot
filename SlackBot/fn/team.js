@@ -4,16 +4,16 @@ module.exports = async function(body, ...param) {
 	if(thisUser.team) {
 		if(body.channel_id == thisUser.team) {
 			var team = process.globals.teamChannels[thisUser.team];
-			var setting = param.pop().toLowerCase();
+			var setting = param.shift().toLowerCase();
 			var value = param.join(' ').trim();
 			var keysToSet = Object.keys(team);
-			console.log(team, keysToSet);
+			
 			//remove the keys we don't want to change / use internally
 			keysToSet.splice(keysToSet.indexOf('leader'), 1);
 			keysToSet.splice(keysToSet.indexOf('members'), 1);
 			keysToSet.splice(keysToSet.indexOf('pending'), 1);
-			console.log(keysToSet);
-			if(!(setting in keysToSet)) {
+
+			if(keysToSet.indexOf(setting) == -1) {
 				return "The setting `"+setting+"` does not exist!";
 			}
 			if(value == "") {
