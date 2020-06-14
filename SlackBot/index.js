@@ -39,11 +39,15 @@ class SlackBot {
 		this.eventHandlers[fn] = method;
 	}
 	//when he realizes that he needs to handle another endpoint and adds some incredibly DRY code
-	callHandler(pr_acc, pr_rej, body, fn, ...param) {
+	async callHandler(pr_acc, pr_rej, body, fn, ...param) {
 		param.unshift(body);
 		fn = fn.toLowerCase();
 		if(fn in this.handlers) {
-			pr_acc(this.handlers[fn].apply(this, param));
+			if(this.handlers[fn].constructor.name == "AsyncFunction") {
+				console.log("Calling async ...!");
+				pr_acc(await this.handlers[fn].apply(this, param));
+			} else
+				pr_acc(this.handlers[fn].apply(this, param));
 		} else {
 			pr_rej("no handler registered");
 		}
