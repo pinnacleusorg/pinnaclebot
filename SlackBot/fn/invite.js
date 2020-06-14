@@ -6,24 +6,27 @@ module.exports = async function(body, ...param) {
 			var team = process.globals.teamChannels[thisUser.team];
 			if(team.leader == body.user_id) {
 				//see if we're at capacity
-				if(team.members.length >= 4) {
+				if(team.members.length < 4) {
 					//make sure we're not spamming invites ...
 					if(team.pending.length < 10) {
 						var getUser = param[0]; //parse string ...
-						getUser.split('@').pop().split('|')[0];
-						if(!team.pending.includes(getUser)) {
-							if(process.globals.userInfo[getUser]) {
-								if(!process.globals.userInfo[getUser].team) {
-									//ok, invite!
-									
+						getUser.split('@').pop().split('|')[0].trim();
+						if(getUser != "") {
+							if(!team.pending.includes(getUser)) {
+								if(process.globals.userInfo[getUser]) {
+									if(!process.globals.userInfo[getUser].team) {
+										//ok, invite!
 
-									return {response_type: 'in_channel', text: "<@"+body.user_id+">: Invited <@"+getUser+"> to join the team."};
+
+										return {response_type: 'in_channel', text: "<@"+body.user_id+">: Invited <@"+getUser+"> to join the team."};
+									}
+									return "<@"+getUser+"> is already in a team -- they have to leave before you can invite them.";
 								}
-								return "<@"+getUser+"> is already in a team -- they have to leave before you can invite them.";
+								return "I don't know that user ... are they registered? They may need to do `/p hello`";
 							}
-							return "I don't know that user ... are they registered? They may need to do `/p hello`";
+							return "You've already invited <@"+getUser+">";
 						}
-						return "You've already invited <@"+getUser+">";
+						return "You didn't seem to tag someone! You have to tag them like `/p invite @PinnacleBot`.";
 					}
 					return "You have a lot of invites pending right now ... please clear them to invite more." //TODO: secure this better
 				}
