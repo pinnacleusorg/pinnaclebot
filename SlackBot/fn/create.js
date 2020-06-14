@@ -36,8 +36,10 @@ module.exports = async function(body, ...param) {
 		});
 		await promise;
 		var channelID = channelCreation.channel.id;
-
-		slackref.callMethod('conversations.invite', {channel: channelID, users: callingUser });
+		var waitForInvite = new Promise(function(resolve, rej) {
+			slackref.callMethod('conversations.invite', {channel: channelID, users: callingUser }, resolve);
+		});
+		await waitForInvite;
 		slackref.callMethod('chat.postMessage', {channel: channelID, text: "Welcome to your team channel! Use `/p help` to get started here. To invite your team members, do `/p invite @name`."});
 
 		//Store metadata ...
@@ -53,9 +55,9 @@ module.exports = async function(body, ...param) {
 		}
 
 		console.log("Created team", channelCreation);
-		return "I just made your team channel, <@"+channelID+"> -- go check it out!";
+		return "I just made your team channel, <#"+channelID+"> -- go check it out!";
 	} else {
-		return "Please create a new team from the welcome channel, <@"+welcomeChannel+">.";
+		return "Please create a new team from the welcome channel, <#"+welcomeChannel+">.";
 	}
 
 
