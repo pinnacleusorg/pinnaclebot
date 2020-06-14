@@ -38,6 +38,7 @@ module.exports = async function(body, ...param) {
 		var channelID = channelCreation.channel.id;
 
 		//we need to send a message to actually open this channel?
+		slackref.callMethod('conversations.invite', {channel: channelID, users: callingUser });
 		slackref.callMethod('chat.postMessage', {channel: channelID, text: "Welcome to your team channel! Use `/p help` to get started."});
 		console.log("Created channel", channelCreation);
 		return "I just made your team channel, #"+teamName+" -- check it out!";
