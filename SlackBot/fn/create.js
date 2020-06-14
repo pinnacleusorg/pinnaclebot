@@ -28,20 +28,34 @@ module.exports = async function(body, ...param) {
 		var channelCreation;
 		var teamName = "team-"+teamid;
 		var callingUser = body.user_id
-		//TODO: danger! if we go to slow this will be sad
+		//TODO: danger! if we go to slow this will be sad -- we need to finish this call before it times out
 		var promise = new Promise(function(resolve, reject) {
-			slackref.callMethod('conversations.create', {name: teamName, is_private: true, user_ids:'U013HMQAJ79,'+callingUser}, resolve);
+			slackref.callMethod('conversations.create', {name: teamName, is_private: true, user_ids:callingUser}, resolve); //bug? apparently it doesn't matter who we invite here because it Doesn't Work. Nice.
 		}).then(function(data) {
 			channelCreation = data;
 		});
 		await promise;
 		var channelID = channelCreation.channel.id;
 
-		//we need to send a message to actually open this channel?
 		slackref.callMethod('conversations.invite', {channel: channelID, users: callingUser });
-		slackref.callMethod('chat.postMessage', {channel: channelID, text: "Welcome to your team channel! Use `/p help` to get started."});
-		console.log("Created channel", channelCreation);
-		return "I just made your team channel, #"+teamName+" -- check it out!";
+		slackref.callMethod('chat.postMessage', {channel: channelID, text: "Welcome to your team channel! Use `/p help` to get started here. To invite your team members, do `/p invite @name`."});
+
+		//Store metadata ...
+		thisUser.team = channelID;
+		process.globals.teamChannels[channelID] = {
+			"leader": body.user_id,
+			"title": "untitled",
+			"tech": "not set",
+			"members": [body.user_id],
+			"devpost": "not set",
+			"lfg": 0,
+			"dropin": 1
+		}
+
+		console.log("Created team", channelCreation);
+		return "I just made your team channel, <#"+channelID+"> -- go check it out!";
+	} else {
+		return "Please create a new team from the welcome channel, <#"+welcomeChannel+">.";
 	}
 
 
