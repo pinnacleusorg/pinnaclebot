@@ -1,6 +1,6 @@
 module.exports = async function(body, ...param) {
 	console.log("Make sure we're in this user's team channel ...");
-
+	var thisUser = process.globals.userInfo[body.user_id];
 	if(thisUser.team) {
 		if(body.channel_id == thisUser.team) {
 			var team = process.globals.teamChannels[thisUser.team];
@@ -11,12 +11,12 @@ module.exports = async function(body, ...param) {
 			keysToSet.splice(keysToSet.indexOf('members'), 1);
 			if(value == "") {
 				//just report out ...
-				return "Current value for `"+setting+"`: `"+team[setting]+"`.";
+				return {response_type: 'in_channel', text: "<@"+body.user_id+">: Current value for `"+setting+"`: `"+team[setting]+"`." };
 			} else {
 				//set the value ... (parse??) TODO: sanitize
 				var oldValue = team[setting];
 				team[setting] = value;
-				return "Updated value for `"+setting+"` from `"+oldValue+"` to `"+value+"`.";
+				return {response_type: 'in_channel', text: "<@"+body.user_id+">: Updated value for `"+setting+"` from `"+oldValue+"` to `"+value+"`." };
 			}
 
 		}
