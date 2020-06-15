@@ -22,7 +22,7 @@ process.globals.teamChannels = {};
 
 process.globals.preCheckin_list = ["kendall@pinnacle.us.org", "kendall+test@pinnacle.us.org"];
 //process.globals.preCheckin = {};
-
+process.globals.pendingInvites = {};
 
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;

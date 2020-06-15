@@ -1,4 +1,7 @@
+const crypto = require('crypto');
+
 module.exports = async function(body, ...param) {
+	var slackref = process.globals.slackbot;
 	console.log("Make sure we're in this user's team channel ...");
 	var thisUser = process.globals.userInfo[body.user_id];
 	if(thisUser.team) {
@@ -12,13 +15,22 @@ module.exports = async function(body, ...param) {
 						var getUser = param[0]; //parse string ...
 						if(getUser && getUser != "") {
 							getUser = getUser.split('@').pop().split('|')[0].trim();
-							console.log(getUser);
-							console.log(body);
 							if(!team.pending.includes(getUser)) {
 								if(process.globals.userInfo[getUser]) {
 									if(!process.globals.userInfo[getUser].team) {
 										//ok, invite!
 
+										team.pending.push(getUser);
+										var inviteString = crypto.createHash('sha1').update(""+Math.random()).digest('hex').substring(0, 16);
+										var pendingInvite = {
+											key: inviteString,
+											forUser: getUser,
+											forChannel: thisUser.team,
+											fromUser: body.user_id
+										};
+										process.globals.pendingInvites[inviteString] = pendingInvite;
+
+										slackref.callMethod('chat.postMessage', {channel: getUser, text: "Hi there! <@"+body.user_id+"> just invited you to their team. To accept, do `/p accept "+inviteString+"`. To deny, just ignore this message." });
 
 										return {response_type: 'in_channel', text: "<@"+body.user_id+">: Invited <@"+getUser+"> to join the team."};
 									}
