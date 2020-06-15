@@ -19,7 +19,7 @@ module.exports = async function(body, ...param) {
 
 					thisUser.team = forChannel;
 					team.members.push(body.user_id);
-					team.pending.splice(team.pending.indexOf(thisUser), 1);
+					team.pending.splice(team.pending.indexOf(body.user_id), 1);
 
 					process.globals.pendingInvites[param[0]] = false;
 
