@@ -16,6 +16,11 @@ module.exports = async function(body, ...param) {
 					});
 					await waitForInvite;
 					slackref.callMethod('chat.postMessage', {channel: forChannel, text: "<!here>: <@"+body.user_id+"> has joined the team!" });
+
+					thisUser.team = forChannel;
+					team.members.push(body.user_id);
+					team.pending.splice(team.pending.indexOf(thisUser), 1);
+
 					process.globals.pendingInvites[param[0]] = false;
 
 					return "OK, I've added you into the team room - happy hacking!";
