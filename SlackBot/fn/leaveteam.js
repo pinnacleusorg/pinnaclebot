@@ -6,7 +6,7 @@ module.exports = function(body, ...param) {
 	var thisUser = process.globals.userInfo[body.user_id];
 	if(thisUser.team) {
 		var team = process.globals.teamChannels[thisUser.team];
-		if(team.leader == body.user_id) {
+		if(team.leader != body.user_id) {
 			//ok, leave team ...
 			var channelID = thisUser.team;
 			thisUser.team = false;

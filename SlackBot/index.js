@@ -58,7 +58,7 @@ class SlackBot {
 		if(fn in this.eventHandlers) {
 			pr_acc(this.eventHandlers[fn].apply(this, [body]));
 		} else {
-			pr_rej("no event handler registered");
+			pr_rej("no event handler registered for "+fn);
 		}
 	}
 
