@@ -16,7 +16,10 @@ module.exports = async function(body, ...param) {
 	if(thisUser.team) {
 		if(body.channel_id == thisUser.team) {
 			var team = process.globals.teamChannels[thisUser.team];
-			var setting = param.shift().toLowerCase();
+			var setting = param.shift().trim()
+			if(setting == "")
+				return "You must specify a setting -- `/p team [setting] [value]`";
+			setting.toLowerCase();
 			var value = param.join(' ').trim();
 			var valueRaw = value;
 			value = value.replace(/\W/g, '');
