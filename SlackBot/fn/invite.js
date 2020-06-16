@@ -46,7 +46,7 @@ module.exports = async function(body, ...param) {
 				}
 				return "You're already at the team capacity (4) -- please remove a user to invite another!";
 			}
-			return "You aren't the leader of this channel ... ask <@"+team.leader+"> to invite a user!";
+			return "You aren't the owner of this channel ... ask <@"+team.leader+"> to invite a user!";
 		}
 		return "This isn't your channel -- use this command in your team room!";
 	}

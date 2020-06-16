@@ -15,7 +15,7 @@ module.exports = async function(body, ...param) {
 						slackref.callMethod('conversations.invite', {channel: forChannel, users: body.user_id }, resolve);
 					});
 					await waitForInvite;
-					slackref.callMethod('chat.postMessage', {channel: forChannel, text: "<!here>: <@"+body.user_id+"> has joined the team!" });
+					slackref.callMethod('chat.postMessage', {channel: forChannel, text: "<!channel>: <@"+body.user_id+"> has joined the team!" });
 
 					thisUser.team = forChannel;
 					team.members.push(body.user_id);

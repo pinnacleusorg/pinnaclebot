@@ -1,4 +1,4 @@
-module.exports = function(body) {
+module.exports = async function(body) {
 	var slackref = process.globals.slackbot;
 	console.log("Triggered member_left_channel event");
 	console.log(body);
@@ -15,10 +15,13 @@ module.exports = function(body) {
 				slackref.callMethod('chat.postMessage', {channel: channel, text: "<@"+body.event.user+"> left the team."});
 				return "leaving team ...";
 			}
-			slackref.callMethod('chat.postEphemeral', {channel: channel, user: body.user_id, text: "You can't leave this channel since you own the team."});
-			slackref.callMethod('conversations.invite', {channel: channel, users: body.user_id});
+			var waitForInvite = new Promise(function(resolve, rej) {
+				slackref.callMethod('conversations.invite', {channel: channel, users: body.event.user}, resolve);
+			});
+			await waitForInvite
+			slackref.callMethod('chat.postEphemeral', {channel: channel, user: body.event.user, text: "You can't leave this channel since you own the team."});
 
-			return "team leader can't leave!! readd them :("
+			return "team leader can't leave!! readd them"
 
 		}
 		return "if the channel they left isn't their team, i don't care!";
