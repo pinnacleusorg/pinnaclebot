@@ -19,7 +19,6 @@ module.exports = async function(body, ...param) {
 								if(process.globals.userInfo[getUser]) {
 									if(!process.globals.userInfo[getUser].team) {
 										//ok, invite!
-
 										team.pending.push(getUser);
 										var inviteString = crypto.createHash('sha1').update(""+Math.random()).digest('hex').substring(0, 16);
 										var pendingInvite = {

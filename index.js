@@ -24,6 +24,9 @@ process.globals.preCheckin_list = ["kendall@pinnacle.us.org", "kendall+test@pinn
 //process.globals.preCheckin = {};
 process.globals.pendingInvites = {};
 
+process.globals.nodropin = [];
+process.globals.lfgList = [];
+
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
 } }));

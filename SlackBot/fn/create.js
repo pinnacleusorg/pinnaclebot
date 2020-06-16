@@ -50,8 +50,8 @@ module.exports = async function(body, ...param) {
 			"members": [body.user_id],
 			"pending": [],
 			"devpost": "not set",
-			"lfg": 0,
-			"dropin": 1
+			"lfg": false,
+			"dropin": true
 		};
 
 		console.log("Created team", channelCreation);
