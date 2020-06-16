@@ -45,6 +45,7 @@ setInterval(function() {
 function exitHandler() {
 	console.log("Going down, saving ...");
 	fs.writeFileSync('globals.json', JSON.stringify(process.globals, null, 2));
+	process.exit();
 }
 process.on('exit', exitHandler.bind(null));
 process.on('SIGINT', exitHandler.bind(null));
