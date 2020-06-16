@@ -166,7 +166,7 @@ class SlackBot {
 			});
 			// this.callEvent.apply(this, [accept, reject, body, commandline]);
 
-			this.callEvent(accept, reject, body, commandline);
+			this.callEvent(accept, reject, body, body.event.type);
 
 			promise.then(function(result) {
 				//success!

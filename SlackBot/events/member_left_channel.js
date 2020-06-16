@@ -1,5 +1,27 @@
 module.exports = function(body) {
+	var slackref = process.globals.slackbot;
 	console.log("Triggered member_left_channel event");
 	console.log(body);
-    return "";
+	var user = process.globals.userInfo[body.event.user];
+	var channel = body.event.channel;
+	if(user.team) {
+		if(user.team == channel) {
+			//this is ok, we can parse it as a leave ... but not if they're the leader!
+			var team = process.globals.teamChannels[channel];
+			if(team.leader != body.event.user) {
+				console.log("should leave team");
+				user.team = false;
+				team.members.splice(team.members.indexOf(body.event.user), 1);
+				slackref.callMethod('chat.postMessage', {channel: channel, text: "<@"+body.event.user+"> left the team."});
+				return "leaving team ...";
+			}
+			slackref.callMethod('chat.postEphemeral', {channel: channel, user: body.user_id, text: "You can't leave this channel since you own the team."});
+			slackref.callMethod('conversations.invite', {channel: channel, users: body.user_id});
+
+			return "team leader can't leave!! readd them :("
+
+		}
+		return "if the channel they left isn't their team, i don't care!";
+	}
+	return "i don't care if they're not in a team!";
 };
