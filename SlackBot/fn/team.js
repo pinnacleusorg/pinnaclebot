@@ -13,7 +13,7 @@ function validateUrl(value) {
 
 module.exports = async function(body, ...param) {
 	var thisUser = process.globals.userInfo[body.user_id];
-	if(thisUser.team) {
+	if(thisUser && thisUser.team) {
 		if(body.channel_id == thisUser.team) {
 			var team = process.globals.teamChannels[thisUser.team];
 			var setting = param.shift()
