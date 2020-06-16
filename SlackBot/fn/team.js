@@ -16,8 +16,8 @@ module.exports = async function(body, ...param) {
 	if(thisUser.team) {
 		if(body.channel_id == thisUser.team) {
 			var team = process.globals.teamChannels[thisUser.team];
-			var setting = param.shift().trim()
-			if(setting == "")
+			var setting = param.shift()
+			if(setting == undefined || setting.trim() == "")
 				return "You must specify a setting -- `/p team [setting] [value]`";
 			setting.toLowerCase();
 			var value = param.join(' ').trim();
