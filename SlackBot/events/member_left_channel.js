@@ -4,12 +4,12 @@ module.exports = async function(body) {
 	console.log(body);
 	var user = process.globals.userInfo[body.event.user];
 	var channel = body.event.channel;
-	if(user.team) {
+	if(user && user.team) {
 		if(user.team == channel) {
 			//this is ok, we can parse it as a leave ... but not if they're the leader!
 			var team = process.globals.teamChannels[channel];
 			if(team.leader != body.event.user || team.members.length == 1) { //last member ...
-				if(team.members.length != 1)
+				if(team.members.length > 1)
 					slackref.callMethod('chat.postMessage', {channel: channel, text: "<@"+body.event.user+"> left the team."});
 				console.log("should leave team");
 				user.team = false;

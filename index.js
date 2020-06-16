@@ -36,7 +36,7 @@ function loadGlobals() {
 loadGlobals();
 setInterval(function() {
 	//save globals to file ...
-	var data = JSON.stringify(student, null, 2);
+	var data = JSON.stringify(process.globals, null, 2);
 
 	fs.writeFile('globals.json', data, (err) => {
 	    console.log("Performed save ... len:"+data.length);
