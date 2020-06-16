@@ -37,12 +37,21 @@ loadGlobals();
 setInterval(function() {
 	//save globals to file ...
 	var data = JSON.stringify(process.globals, null, 2);
-
 	fs.writeFile('globals.json', data, (err) => {
 	    console.log("Performed save ... len:"+data.length);
 	});
-
 }, 5 * 60 * 1000);
+
+function exitHandler() {
+	console.log("Going down, saving ...");
+	fs.writeFileSync('globals.json', JSON.stringify(process.globals, null, 2));
+}
+process.on('exit', exitHandler.bind(null));
+process.on('SIGINT', exitHandler.bind(null));
+process.on('SIGUSR1', exitHandler.bind(null));
+process.on('SIGUSR2', exitHandler.bind(null));
+process.on('uncaughtException', exitHandler.bind(null));
+
 
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
