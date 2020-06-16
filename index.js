@@ -18,7 +18,6 @@ process.globals.privilegedList = [];
 process.globals.privilegedChannels = ['C015ABQTKRQ'];
 process.globals.welcomeChannel = 'C0148E1BQGZ';
 process.globals.userInfo = {};
-process.globals.slackbot = thisParser;
 process.globals.teamChannels = {};
 
 process.globals.preCheckin_list = ["kendall@pinnacle.us.org", "kendall+test@pinnacle.us.org"];
@@ -30,7 +29,8 @@ process.globals.lfgList = [];
 function loadGlobals() {
 	if(!fs.existsSync('globals.json'))
 		return;
-	process.globals = JSON.parse(fs.readFileSync('globals.json'));;
+	process.globals = JSON.parse(fs.readFileSync('globals.json'));
+	process.globals.slackbot = thisParser;
 	console.log("loaded globals!", process.globals);
 }
 loadGlobals();
