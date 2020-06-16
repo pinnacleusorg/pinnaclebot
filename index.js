@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const fs = require('fs');
 const SlackBot = require('./SlackBot');
 const GithubCI = require('./GithubCI');
 const bodyParser = require('body-parser');
@@ -26,6 +27,22 @@ process.globals.pendingInvites = {};
 
 process.globals.nodropin = [];
 process.globals.lfgList = [];
+function loadGlobals() {
+	if(!fs.existsSync('globals.json'))
+		return;
+	process.globals = JSON.parse(fs.readFileSync('globals.json'));;
+	console.log("loaded globals!", process.globals);
+}
+loadGlobals();
+setInterval(function() {
+	//save globals to file ...
+	var data = JSON.stringify(student, null, 2);
+
+	fs.writeFile('globals.json', data, (err) => {
+	    console.log("Performed save ... len:"+data.length);
+	});
+
+}, 5 * 60 * 1000);
 
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
