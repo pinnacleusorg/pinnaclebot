@@ -31,5 +31,5 @@ module.exports = async function(body, ...param) {
 		}
 		return "I'm not sure what invitation you're talking about -- maybe it expired?";
 	}
-	return "You're already on a team. You'll need to leave that first before you can join another (`/p leaveteam`)";
+	return "You're already on a team. You'll need to leave that first before you can join another (`/yeti leaveteam`)";
 };

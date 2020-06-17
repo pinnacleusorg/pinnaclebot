@@ -10,21 +10,21 @@ function print_generalCommands(response) {
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p help`*\nPrints out this dialogue."
+			"text": "*`/yeti help`*\nPrints out this dialogue."
 		}
 	});
 	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p create`*\nCreates a brand new team, and invites you to the team room."
+			"text": "*`/yeti create`*\nCreates a brand new team, and invites you to the team room."
 		}
 	});
 	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p lfg`*\nDon't have a team yet? Opens the Looking-for-Group options."
+			"text": "*`/yeti lfg`*\nDon't have a team yet? Opens the Looking-for-Group options."
 		}
 	});
 }
@@ -43,7 +43,7 @@ function print_supportCommands(response) {
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p ticket`*\nNeed to get in touch with staff? Opens the support ticket options."
+			"text": "*`/yeti ticket`*\nNeed to get in touch with staff? Opens the support ticket options."
 		}
 	});
 }
@@ -59,49 +59,49 @@ function print_teamCommands(response) {
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p invite [@name]`*\nInvite a team member by @Tagging them!"
+			"text": "*`/yeti invite [@name]`*\nInvite a team member by @Tagging them!"
 		}
 	});
 	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p team title [name]`*\nSet the name of your team's project."
+			"text": "*`/yeti team title [name]`*\nSet the name of your team's project."
 		}
 	});
 	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p team lfg [0/1]`*\nTurn on \"Looking-for-group\" mode. This lets other people find your team and join in! (OFF by default)"
+			"text": "*`/yeti team lfg [0/1]`*\nTurn on \"Looking-for-group\" mode. This lets other people find your team and join in! (OFF by default)"
 		}
 	});
 	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p team dropin [0/1]`*\nTurn on \"drop-in\" mode. This means that you're OK with Pinnacle staff coming into the channel to check-in with your group. (ON by default)"
+			"text": "*`/yeti team dropin [0/1]`*\nTurn on \"drop-in\" mode. This means that you're OK with Pinnacle staff coming into the channel to check-in with your group. (ON by default)"
 		}
 	});
 	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p team description [...]`*\nWrite a short description for your team's project"
+			"text": "*`/yeti team description [...]`*\nWrite a short description for your team's project"
 		}
 	});
 	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p team tech [javascript, python, tensor, ...]`*\nWhat technologies does your project incorporate?"
+			"text": "*`/yeti team tech [javascript, python, tensor, ...]`*\nWhat technologies does your project incorporate?"
 		}
 	});
 	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/p team devpost [https:// ...]`*\nLink to your devpost submission"
+			"text": "*`/yeti team devpost [https:// ...]`*\nLink to your devpost submission"
 		}
 	});
 }
@@ -111,7 +111,7 @@ function print_divider(response) {
 	});
 }
 module.exports = function(body, ...param) {
-	//TODO: maybe listen to /p help ... params to finetune help result
+	//TODO: maybe listen to /yeti help ... params to finetune help result
 	var response = {'blocks': []};
 	response.blocks.push({
 		"type": "section",

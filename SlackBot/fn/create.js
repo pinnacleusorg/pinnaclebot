@@ -7,7 +7,7 @@ module.exports = async function(body, ...param) {
 		//We're creating a new welcome channel ... check a couple of things ...
 		var thisUser = process.globals.userInfo[body.user_id];
 		if(!thisUser) {
-			return "I don't seem to have you registered ... can you do `/p checkin`?";
+			return "I don't seem to have you registered ... can you do `/yeti checkin`?";
 		}
 		if(thisUser.team) {
 			return "You're already in a team -- you have to leave that first before creating a new one.";
@@ -38,7 +38,7 @@ module.exports = async function(body, ...param) {
 			slackref.callMethod('conversations.invite', {channel: channelID, users: callingUser }, resolve);
 		});
 		await waitForInvite;
-		slackref.callMethod('chat.postMessage', {channel: channelID, text: "Welcome to your team channel! Use `/p help` to get started here. To invite your team members, do `/p invite @name`."});
+		slackref.callMethod('chat.postMessage', {channel: channelID, text: "Welcome to your team channel! Use `/yeti help` to get started here. To invite your team members, do `/yeti invite @name`."});
 
 		//Store metadata ...
 		thisUser.team = channelID;

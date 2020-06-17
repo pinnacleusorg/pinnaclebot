@@ -8,12 +8,12 @@ const app = express()
 const port = process.env.PORT
 
 var thisParser = new SlackBot(process.env.SLACK_TOKEN, process.env.SLACK_OAUTH, process.env.SLACK_ADMIN);
-var thisGithub = new GithubCI(process.env.GITHUB_SECRET);
+// var thisGithub = new GithubCI(process.env.GITHUB_SECRET);
 
 //Define Globals
 process.globals = {};
 
-//process.globals.privilegedList = ['U013W1ST95H'];
+//yetirocess.globals.privilegedList = ['U013W1ST95H'];
 process.globals.privilegedList = [];
 process.globals.privilegedChannels = ['C015ABQTKRQ'];
 process.globals.welcomeChannel = 'C0148E1BQGZ';
@@ -21,7 +21,7 @@ process.globals.userInfo = {};
 process.globals.teamChannels = {};
 
 process.globals.preCheckin_list = ["kendall@pinnacle.us.org", "kendall+test@pinnacle.us.org"];
-//process.globals.preCheckin = {};
+//yetirocess.globals.preCheckin = {};
 process.globals.pendingInvites = {};
 
 process.globals.nodropin = [];
@@ -82,7 +82,7 @@ app.use('/event', bodyParser.json({ verify: (req, res, buf) => {
 
 app.use('/handle', thisParser.parse);
 app.use('/event', thisParser.eventParse);
-app.use('/git', thisGithub.parse);
+// app.use('/git', thisGithub.parse);
 
 app.get('/', (req, res) => res.sendStatus(404))
 

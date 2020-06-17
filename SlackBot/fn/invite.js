@@ -12,7 +12,7 @@ module.exports = async function(body, ...param) {
 				if(team.members.length < 4) {
 					//make sure we're not spamming invites ...
 					if(team.pending.length < 10) {
-						var getUser = param[0]; //parse string ...
+						var getUser = param[0]; //yetiarse string ...
 						if(getUser && getUser != "") {
 							getUser = getUser.split('@').pop().split('|')[0].trim();
 							if(!team.pending.includes(getUser)) {
@@ -29,17 +29,17 @@ module.exports = async function(body, ...param) {
 										};
 										process.globals.pendingInvites[inviteString] = pendingInvite;
 
-										slackref.callMethod('chat.postMessage', {channel: getUser, text: "Hi there! <@"+body.user_id+"> just invited you to their team. To accept, do `/p accept "+inviteString+"`. To deny, just ignore this message." });
+										slackref.callMethod('chat.postMessage', {channel: getUser, text: "Hi there! <@"+body.user_id+"> just invited you to their team. To accept, do `/yeti accept "+inviteString+"`. To deny, just ignore this message." });
 
 										return {response_type: 'in_channel', text: "<@"+body.user_id+">: Invited <@"+getUser+"> to join the team."};
 									}
 									return "<@"+getUser+"> is already in a team -- they have to leave before you can invite them.";
 								}
-								return "I don't know that user ... are they registered? They may need to do `/p checkin`";
+								return "I don't know that user ... are they registered? They may need to do `/yeti checkin`";
 							}
 							return "You've already invited <@"+getUser+">";
 						}
-						return "You didn't seem to tag someone! You have to tag them like `/p invite @PinnacleBot`.";
+						return "You didn't seem to tag someone! You have to tag them like `/yeti invite @Yeti`.";
 					}
 					return "You have a lot of invites pending right now ... please clear them to invite more." //TODO: secure this better
 				}
@@ -49,5 +49,5 @@ module.exports = async function(body, ...param) {
 		}
 		return "This isn't your channel -- use this command in your team room!";
 	}
-	return "You don't seem to have a team -- try `/p create` first!";
+	return "You don't seem to have a team -- try `/yeti create` first!";
 };

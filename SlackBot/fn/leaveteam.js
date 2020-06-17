@@ -17,7 +17,7 @@ module.exports = function(body, ...param) {
 			team.members.splice(team.members.indexOf(body.user_id), 1);
 			return "You've successfully left your team.";
 		}
-		return "You can't leave your team since you're the owner -- delegate the role (`/p setowner @[name]`) first.";
+		return "You can't leave your team since you're the owner -- delegate the role (`/yeti setowner @[name]`) first.";
 	}
 	return "You aren't in a team!";
 };

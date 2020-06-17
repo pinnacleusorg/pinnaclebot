@@ -43,8 +43,8 @@ class SlackBot {
 		param.unshift(body);
 		fn = fn.toLowerCase();
 		if(fn in this.handlers) {
+			console.log("Calling "+fn);
 			if(this.handlers[fn].constructor.name == "AsyncFunction") {
-				console.log("Calling async ...!");
 				pr_acc(await this.handlers[fn].apply(this, param));
 			} else
 				pr_acc(this.handlers[fn].apply(this, param));
@@ -136,7 +136,7 @@ class SlackBot {
 				res.status(200).json(result);
 			}).catch(function(err) {
 				console.log(err);
-				res.status(200).send("Sorry, I didn't recognize that command! Try `/p help` to get a list of commands.");
+				res.status(200).send("Sorry, I didn't recognize that command! Try `/yeti help` to get a list of commands.");
 				return;
 			});
 			return;

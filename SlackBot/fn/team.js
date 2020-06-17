@@ -18,7 +18,7 @@ module.exports = async function(body, ...param) {
 			var team = process.globals.teamChannels[thisUser.team];
 			var setting = param.shift()
 			if(setting == undefined || setting.trim() == "")
-				return "You must specify a setting -- `/p team [setting] [value]`";
+				return "You must specify a setting -- `/yeti team [setting] [value]`";
 			setting.toLowerCase();
 			var value = param.join(' ').trim();
 			var valueRaw = value;
@@ -89,6 +89,6 @@ module.exports = async function(body, ...param) {
 		}
 		return "This isn't your channel -- use this command in your team room!";
 	}
-	return "You don't seem to have a team -- try `/p create` first!";
+	return "You don't seem to have a team -- try `/yeti create` first!";
 
 };
