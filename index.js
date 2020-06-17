@@ -33,11 +33,13 @@ function loadGlobals() {
 		return;
 	process.globals = JSON.parse(fs.readFileSync('globals.json'));
 	process.globals.slackbot = thisParser;
-	console.log("loaded globals!", process.globals);
+	console.log("loaded globals!", Object.keys(process.globals.userInfo).length);
 }
 loadGlobals();
+
 setInterval(function() {
 	//save globals to file ...
+	console.log("Doing save ...");
 	var data = JSON.stringify(process.globals, null, 2);
 	fs.writeFile('globals.json', data, (err) => {
 	    console.log("Performed save ... len:"+data.length);
