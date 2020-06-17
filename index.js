@@ -26,6 +26,8 @@ process.globals.pendingInvites = {};
 
 process.globals.nodropin = [];
 process.globals.lfgList = [];
+process.globals.slackbot = thisParser;
+
 function loadGlobals() {
 	if(!fs.existsSync('globals.json'))
 		return;
