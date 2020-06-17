@@ -6,6 +6,7 @@ module.exports = {
     watch_delay: 5000,
     error_file: './log/err.log',
     out_file: './log/out.log',
-    ignore_watch: ['log']
+    ignore_watch: ['log', './globals.json'],
+    kill_timeout: 20000
   }]
 };
