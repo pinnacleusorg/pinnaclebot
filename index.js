@@ -42,7 +42,7 @@ setInterval(function() {
 	fs.writeFile('globals.json', data, (err) => {
 	    console.log("Performed save ... len:"+data.length);
 	});
-}, 5 * 60 * 1000);
+}, 30 * 1000);
 
 function exitHandler(options, exitCode) {
     if (options.cleanup) {
