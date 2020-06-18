@@ -18,6 +18,7 @@ if(fs.existsSync('globals_'+process.env.BRANCH+'.json')) {
 	console.log("loaded globals from file!", Object.keys(process.globals.userInfo).length);
 }
 if(!process.globals) {
+	process.globals = {};
 	if(process.env.BRANCH == "master") {
 		process.globals.privilegedList = ['U0146Q88V2N'];
 		process.globals.privilegedChannels = [''];
