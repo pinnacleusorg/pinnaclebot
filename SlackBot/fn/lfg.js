@@ -42,7 +42,7 @@ module.exports = async function(body, ...param) {
 			}
 		});
 	}
-	for(int i = 0; i < teamList.length && i < 10; i++) {
+	for(var i = 0; i < teamList.length && i < 10; i++) {
 		var team = process.globals.teamChannels[teamList[i]];
 		var teamName = team.title;
 		var num = team.members.length;
