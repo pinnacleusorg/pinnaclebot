@@ -57,7 +57,7 @@ module.exports = async function(body, ...param) {
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": (i+1)+". *"+teamName+"* - "+truncatedDesc+"\nJoin: `/p join "+teamList[i]+"`` ("+num+"/4)"
+				"text": (i+1)+". *"+teamName+"* - "+truncatedDesc+"\nJoin: `/yeti join "+teamList[i]+"`` ("+num+"/4)"
 			}
 		});
 	}
@@ -68,7 +68,7 @@ module.exports = async function(body, ...param) {
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "To see more open teams, just do `/p lfg` again."
+				"text": "To see more open teams, just do `/yeti lfg` again."
 			}
 	});
 

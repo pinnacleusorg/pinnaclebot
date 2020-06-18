@@ -9,12 +9,12 @@ module.exports = async function(body, ...param) {
 					if(team.members.length < 4) {
 						//invitation isn't invalid, team isn't full. we should be able to add this user.
 						var waitForInvite = new Promise(function(resolve, rej) {
-							slackref.callMethod('conversations.invite', {channel: forChannel, users: body.user_id }, resolve);
+							slackref.callMethod('conversations.invite', {channel: param[0], users: body.user_id }, resolve);
 						});
 						await waitForInvite;
-						slackref.callMethod('chat.postMessage', {channel: forChannel, text: "<!channel>: <@"+body.user_id+"> has joined the team (drop-in)!" });
+						slackref.callMethod('chat.postMessage', {channel: param[0], text: "<!channel>: <@"+body.user_id+"> has joined the team (drop-in)!" });
 
-						thisUser.team = forChannel;
+						thisUser.team = param[0];
 						team.members.push(body.user_id);
 						if(team.pending.indexOf(body.user_id) != -1)
 							team.pending.splice(team.pending.indexOf(body.user_id), 1);
@@ -22,7 +22,7 @@ module.exports = async function(body, ...param) {
 						return "OK, I've added you into the team room - happy hacking!";
 					}
 					//make sure they're not in LFG if they're full ...
-					
+
 					team.lfg = false;
 					process.globals.lfgList.splice(process.globals.lfgList.indexOf(thisUser.team), 1);
 
