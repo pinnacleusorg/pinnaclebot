@@ -19,6 +19,7 @@ module.exports = async function(body, ...param) {
 			var setting = param.shift()
 			if(setting == undefined || setting.trim() == "") {
 				var card = process.globals.slackbot.generateTeamCard(team);
+                console.log(JSON.stringify(card));
                 return card;
 				//return "You must specify a setting -- `/yeti team [setting] [value]`";
 			}
