@@ -218,7 +218,7 @@ class SlackBot {
 					"type": "section",
 					"text": {
 						"type": "mrkdwn",
-						"text": "Team Card:\n*"+team.title+"* - "+team.description
+						"text": "*"+team.title+"* - "+team.description
 					}
 				},
 				{
