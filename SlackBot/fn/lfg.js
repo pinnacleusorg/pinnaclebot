@@ -71,7 +71,6 @@ module.exports = async function(body, ...param) {
 				"text": (i+1)+". *"+teamName+"* - "+truncatedDesc+"\nJoin: `/p join "+teamList[i]+"`` ("+num+"/4)"
 			}
 	});
-);
 
 	return results;
 };
