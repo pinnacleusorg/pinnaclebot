@@ -72,5 +72,5 @@ module.exports = async function(body, ...param) {
 			}
 	});
 
-	return results;
+	return result;
 };
