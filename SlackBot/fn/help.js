@@ -113,9 +113,8 @@ module.exports = function(body, ...param) {
 	response.blocks.push({
 		"type": "section",
 		"text": {
-			"type": "plain_text",
-			"emoji": true,
-			"text": "Hi! Welcome to the Pinnacle Slack! I'm Yeti, the managing bot for Pinnacle Summer Events. For more information, check out my <https://tinyurl.com/pinnaclebot|readme>! I'm still in beta, so be gentle with me! Here are some commands to get you started:"
+			"type": "mrkdwn",
+			"text": "Hi! Welcome to the Pinnacle Slack! I'm Yeti, the managing bot for Pinnacle Summer Events. For more information, check out my <https://tinyurl.com/pinnaclebot|readme>. I'm still in beta, so be gentle with me! Here are some commands to get you started:"
 		}
 	});
 	print_divider(response);
@@ -126,6 +125,13 @@ module.exports = function(body, ...param) {
 		print_teamCommands(response);
 		print_divider(response);
 	}
+	response.blocks.push({
+		"type": "section",
+		"text": {
+			"type": "mrkdwn",
+			"text": "Should you run into any trouble or have any questions, please reach out to a staff member! Happy hacking!"
+		}
+	});
 	// print_supportCommands(response);
 	return response;
 };
