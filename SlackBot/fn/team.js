@@ -79,7 +79,7 @@ module.exports = async function(body, ...param) {
 					case "devpost":
 						var value = valueRaw.split(' ')[0];
                         //extract to URL format ...
-                        var url = value.split('<').pop().split('|')[0].trim();
+                        var url = value.split('<').pop().split('|')[0].trim().replace('>', '');
 
 						if(validateUrl(url)) {
 							if(url.indexOf("https://pinnacle.devpost.com") == 0) { //TODO: validate this better?
