@@ -77,10 +77,13 @@ module.exports = async function(body, ...param) {
 
 					case "devpost":
 						var value = valueRaw.split(' ')[0];
-						if(validateUrl(value)) {
-							if(value.indexOf("https://pinnacle.devpost.com") == 0) { //TODO: validate this better?
-								team[setting] = value;
-								return {response_type: 'in_channel', text: "<@"+body.user_id+">: Updated value for `"+setting+"` from `"+oldValue+"` to `"+value+"`." };
+                        //extract to URL format ...
+                        var url = value.split('<').pop().split('|')[0].trim();
+
+						if(validateUrl(url)) {
+							if(url.indexOf("https://pinnacle.devpost.com") == 0) { //TODO: validate this better?
+								team[setting] = url;
+								return {response_type: 'in_channel', text: "<@"+body.user_id+">: Updated value for `"+setting+"` to `"+value+"`." };
 							}
 						}
 						return "That is not a valid URL!";
