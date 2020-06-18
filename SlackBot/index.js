@@ -31,6 +31,7 @@ class SlackBot {
 
 	handlers = {};
 	eventHandlers = {};
+	masterOpen = false;
 
 	addHandler(fn, method) {
 		this.handlers[fn] = method;
@@ -118,6 +119,15 @@ class SlackBot {
 		var fullSig = "v0=" + crypto.createHmac('sha256', this.token).update(sig).digest('hex');
 		if(crypto.timingSafeEqual(Buffer.from(fullSig), Buffer.from(req.header("X-Slack-Signature")))) {
 			//determine appropriate handler ...
+			if(process.env.BRANCH == "master" && !masterOpen) {
+				var dateDelta = new Date() - new Date('2020-06-20');
+				if(dateDelta > 0)
+					masterOpen = true
+				else {
+					res.send("Hello! Unfortunately, I cannot accept commands right now, until Everest begins. Everest will open at 5PM PDT on 6/19.")
+					return;
+				}
+			}
 
 			var commandline = body.text;
 			var split = commandline.split(' ');
@@ -133,6 +143,9 @@ class SlackBot {
 
 			promise.then(function(result) {
 				//success!
+				if(typeof result === 'string') {
+					result = {text: result };
+				}
 				res.status(200).json(result);
 			}).catch(function(err) {
 				console.log(err);
@@ -158,18 +171,19 @@ class SlackBot {
 		if(crypto.timingSafeEqual(Buffer.from(fullSig), Buffer.from(req.header("X-Slack-Signature")))) {
 			//determine appropriate handler ...
 
+			if(process.env.BRANCH == "master" && !masterOpen) {
+				res.status(200);
+			}
+
 			var commandline = body.type;
 			var accept, reject;
 			var promise = new Promise(function(acc, rej) {
 				accept = acc;
 				reject = rej;
 			});
-			// this.callEvent.apply(this, [accept, reject, body, commandline]);
-
 			this.callEvent(accept, reject, body, body.event.type);
 
 			promise.then(function(result) {
-				//success!
 				res.status(200).json(result);
 			}).catch(function(err) {
 				console.log(err);
