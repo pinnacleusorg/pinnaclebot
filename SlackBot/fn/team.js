@@ -48,7 +48,8 @@ module.exports = async function(body, ...param) {
 
 					case "lfg":
 						var booleanValue = stringToBoolean(""+value);
-						if(booleanValue != team[setting]) {
+                        var oldValue = team[setting];
+						if(booleanValue != oldValue) {
 							//UPDATE!
 							if(booleanValue) {
 								process.globals.lfgList.push(thisUser.team);
@@ -61,8 +62,9 @@ module.exports = async function(body, ...param) {
 					break;
 
 					case "dropin":
+                        var oldValue = team[setting];
                         var booleanValue = stringToBoolean(""+value);
-                        if(booleanValue != team[setting]) {
+                        if(booleanValue != oldValue) {
     						if(!booleanValue) {
     							process.globals.nodropin.push(thisUser.team);
     						} else {
