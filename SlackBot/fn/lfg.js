@@ -62,15 +62,16 @@ module.exports = async function(body, ...param) {
 		});
 	}
 	result.blocks.push({
-		{
 			"type": "divider"
-		}
-		"type": "section",
-		"text": {
-			"type": "mrkdwn",
-			"text": (i+1)+". *"+teamName+"* - "+truncatedDesc+"\nJoin: `/p join "+teamList[i]+"`` ("+num+"/4)"
-		}
 	});
+	result.blocks.push({
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": (i+1)+". *"+teamName+"* - "+truncatedDesc+"\nJoin: `/p join "+teamList[i]+"`` ("+num+"/4)"
+			}
+	});
+);
 
 	return results;
 };
