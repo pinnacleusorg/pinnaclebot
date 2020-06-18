@@ -25,7 +25,7 @@ module.exports = async function(body, ...param) {
 				"type": "section",
 				"text": {
 					"type": "mrkdwn",
-					"text": ":mag: Here's a random collection of teams open for Looking-for-group. You can freely join any team and chat with the members to see if you're a good fit."
+					"text": ":mag: Here's a random collection of teams open for Looking-for-Group drop-ins. You can freely join any team and chat with the members to see if you're a good fit."
 				}
 			},
 			{
@@ -48,8 +48,8 @@ module.exports = async function(body, ...param) {
 		var num = team.members.length;
 		var description = team.description;
 		var truncatedDesc = "";
-		if (description.length > 20)
-			truncatedDesc = description.substring(0,20) + '...';
+		if (description.length > 60)
+			truncatedDesc = description.substring(0, 60) + '...';
 		else
 			truncatedDesc = description;
 
@@ -68,7 +68,7 @@ module.exports = async function(body, ...param) {
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": (i+1)+". *"+teamName+"* - "+truncatedDesc+"\nJoin: `/p join "+teamList[i]+"`` ("+num+"/4)"
+				"text": "To see more open teams, just do `/p lfg` again."
 			}
 	});
 
