@@ -12,26 +12,39 @@ var thisParser = new SlackBot(process.env.SLACK_TOKEN, process.env.SLACK_OAUTH, 
 
 //Define Globals
 process.globals = {};
+if(process.env.BRANCH == "master") {
+	process.globals.privilegedList = [''];
+	process.globals.privilegedList = [];
+	process.globals.privilegedChannels = [''];
+	process.globals.welcomeChannel = '';
+	process.globals.userInfo = {};
+	process.globals.teamChannels = {};
 
-//yetirocess.globals.privilegedList = ['U013W1ST95H'];
-process.globals.privilegedList = [];
-process.globals.privilegedChannels = ['C015ABQTKRQ'];
-process.globals.welcomeChannel = 'C0148E1BQGZ';
-process.globals.userInfo = {};
-process.globals.teamChannels = {};
+	// process.globals.preCheckin_list;
+	process.globals.pendingInvites = {};
 
-process.globals.preCheckin_list = ["kendall@pinnacle.us.org", "kendall+test@pinnacle.us.org"];
-//yetirocess.globals.preCheckin = {};
-process.globals.pendingInvites = {};
+	process.globals.nodropin = [];
+	process.globals.lfgList = [];
+} else if(process.env.BRANCH == "development") {
+	process.globals.privilegedList = ['U013W1ST95H'];
+	process.globals.privilegedList = [];
+	process.globals.privilegedChannels = ['C015ABQTKRQ'];
+	process.globals.welcomeChannel = 'C0148E1BQGZ';
+	process.globals.userInfo = {};
+	process.globals.teamChannels = {};
 
-process.globals.nodropin = [];
-process.globals.lfgList = [];
+	process.globals.preCheckin_list = ["kendall@pinnacle.us.org", "kendall+test@pinnacle.us.org"];
+	process.globals.pendingInvites = {};
+
+	process.globals.nodropin = [];
+	process.globals.lfgList = [];
+}
 process.globals.slackbot = thisParser;
 
 function loadGlobals() {
-	if(!fs.existsSync('globals.json'))
+	if(!fs.existsSync('globals_'+process.env.BRANCH+'.json'))
 		return;
-	process.globals = JSON.parse(fs.readFileSync('globals.json'));
+	process.globals = JSON.parse(fs.readFileSync('globals_'+process.env.BRANCH+'.json'));
 	process.globals.slackbot = thisParser;
 	console.log("loaded globals!", Object.keys(process.globals.userInfo).length);
 }
@@ -41,25 +54,25 @@ setInterval(function() {
 	//save globals to file ...
 	console.log("Doing save ...");
 	var data = JSON.stringify(process.globals, null, 2);
-	fs.writeFile('globals.json', data, (err) => {
+	fs.writeFile('globals_'+process.env.BRANCH+'.json', data, (err) => {
+		if(err) {
+			console.log("A save error occurred! Saving an emergency backup ...", err);
+			fs.writeFileSync('globals_bak.json', data);
+			console.log("Emergency backup saved!");
+		}
 	    console.log("Performed save ... len:"+data.length);
 	});
-}, 30 * 1000);
+}, 60 * 1000);
 
 function exitHandler(options, exitCode) {
     if (options.cleanup) {
 		console.log("Going down, saving ...");
-		fs.writeFileSync('globals.json', JSON.stringify(process.globals, null, 2));
+		fs.writeFileSync('globals_'+process.env.BRANCH+'.json', JSON.stringify(process.globals, null, 2)); //HAS to be syncronous
 	}
     if (exitCode || exitCode === 0) {
 		console.log("Going down "+exitCode);
 	}
     if (options.exit) process.exit();
-}
-function exitHandler() {
-	console.log("Going down, saving ...");
-	fs.writeFileSync('globals.json', JSON.stringify(process.globals, null, 2));
-	process.exit();
 }
 
 process.on('exit', exitHandler.bind(null,{cleanup:true}));
@@ -70,6 +83,7 @@ process.on('SIGUSR2', exitHandler.bind(null, {exit:true}));
 process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
 
 
+//slack has a very cool api
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
 } }));
