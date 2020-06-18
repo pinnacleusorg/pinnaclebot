@@ -11,44 +11,42 @@ var thisParser = new SlackBot(process.env.SLACK_TOKEN, process.env.SLACK_OAUTH, 
 // var thisGithub = new GithubCI(process.env.GITHUB_SECRET);
 
 //Define Globals
-process.globals = {};
-if(process.env.BRANCH == "master") {
-	process.globals.privilegedList = [''];
-	process.globals.privilegedList = [];
-	process.globals.privilegedChannels = [''];
-	process.globals.welcomeChannel = '';
-	process.globals.userInfo = {};
-	process.globals.teamChannels = {};
 
-	// process.globals.preCheckin_list;
-	process.globals.pendingInvites = {};
-
-	process.globals.nodropin = [];
-	process.globals.lfgList = [];
-} else if(process.env.BRANCH == "development") {
-	process.globals.privilegedList = ['U013W1ST95H'];
-	process.globals.privilegedList = [];
-	process.globals.privilegedChannels = ['C015ABQTKRQ'];
-	process.globals.welcomeChannel = 'C0148E1BQGZ';
-	process.globals.userInfo = {};
-	process.globals.teamChannels = {};
-
-	process.globals.preCheckin_list = ["kendall@pinnacle.us.org", "kendall+test@pinnacle.us.org"];
-	process.globals.pendingInvites = {};
-
-	process.globals.nodropin = [];
-	process.globals.lfgList = [];
-}
-process.globals.slackbot = thisParser;
-
-function loadGlobals() {
-	if(!fs.existsSync('globals_'+process.env.BRANCH+'.json'))
-		return;
+if(fs.existsSync('globals_'+process.env.BRANCH+'.json')) {
 	process.globals = JSON.parse(fs.readFileSync('globals_'+process.env.BRANCH+'.json'));
 	process.globals.slackbot = thisParser;
-	console.log("loaded globals!", Object.keys(process.globals.userInfo).length);
+	console.log("loaded globals from file!", Object.keys(process.globals.userInfo).length);
 }
-loadGlobals();
+if(!process.globals) {
+	if(process.env.BRANCH == "master") {
+		process.globals.privilegedList = [''];
+		process.globals.privilegedList = [];
+		process.globals.privilegedChannels = [''];
+		process.globals.welcomeChannel = '';
+		process.globals.userInfo = {};
+		process.globals.teamChannels = {};
+
+		// process.globals.preCheckin_list;
+		process.globals.pendingInvites = {};
+
+		process.globals.nodropin = [];
+		process.globals.lfgList = [];
+	} else if(process.env.BRANCH == "development") {
+		process.globals.privilegedList = ['U013W1ST95H'];
+		process.globals.privilegedList = [];
+		process.globals.privilegedChannels = ['C015ABQTKRQ'];
+		process.globals.welcomeChannel = 'C0148E1BQGZ';
+		process.globals.userInfo = {};
+		process.globals.teamChannels = {};
+
+		process.globals.preCheckin_list = ["kendall@pinnacle.us.org", "kendall+test@pinnacle.us.org"];
+		process.globals.pendingInvites = {};
+
+		process.globals.nodropin = [];
+		process.globals.lfgList = [];
+	}
+	process.globals.slackbot = thisParser;
+}
 
 setInterval(function() {
 	//save globals to file ...
