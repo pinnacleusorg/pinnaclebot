@@ -18,7 +18,7 @@ module.exports = async function(body, ...param) {
 			var team = process.globals.teamChannels[thisUser.team];
 			var setting = param.shift()
 			if(setting == undefined || setting.trim() == "") {
-				var card = process.globals.slackref.generateTeamCard(team);
+				var card = process.globals.slackbot.generateTeamCard(team);
                 return card;
 				//return "You must specify a setting -- `/yeti team [setting] [value]`";
 			}
