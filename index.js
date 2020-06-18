@@ -22,6 +22,7 @@ if(!process.globals) {
 		process.globals.privilegedList = ['U0146Q88V2N'];
 		process.globals.privilegedChannels = [''];
 		process.globals.welcomeChannel = '';
+		process.globals.staffChannel = 'G015H8570E4';
 		process.globals.userInfo = {};
 		process.globals.teamChannels = {};
 
@@ -33,7 +34,8 @@ if(!process.globals) {
 	} else if(process.env.BRANCH == "development") {
 		process.globals.privilegedList = ['U013W1ST95H'];
 		process.globals.privilegedChannels = [];
-		process.globals.welcomeChannel = 'C0148E1BQGZ';
+		process.globals.welcomeChannel = '';
+		process.globals.staffChannel = 'G015H8570E4';
 		process.globals.userInfo = {};
 		process.globals.teamChannels = {};
 
