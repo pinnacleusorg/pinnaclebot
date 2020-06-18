@@ -37,9 +37,6 @@ function print_supportCommands(response) {
 		}
 	});
 	response.blocks.push({
-		"type": "divider"
-	});
-	response.blocks.push({
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
@@ -73,20 +70,6 @@ function print_teamCommands(response) {
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/yeti team lfg [0/1]`*\nTurn on \"Looking-for-group\" mode. This lets other people find your team and join in! (OFF by default)"
-		}
-	});
-	response.blocks.push({
-		"type": "section",
-		"text": {
-			"type": "mrkdwn",
-			"text": "*`/yeti team dropin [0/1]`*\nTurn on \"drop-in\" mode. This means that you're OK with Pinnacle staff coming into the channel to check-in with your group. (ON by default)"
-		}
-	});
-	response.blocks.push({
-		"type": "section",
-		"text": {
-			"type": "mrkdwn",
 			"text": "*`/yeti team description [...]`*\nWrite a short description for your team's project"
 		}
 	});
@@ -95,6 +78,20 @@ function print_teamCommands(response) {
 		"text": {
 			"type": "mrkdwn",
 			"text": "*`/yeti team tech [javascript, python, tensor, ...]`*\nWhat technologies does your project incorporate?"
+		}
+	});
+	response.blocks.push({
+		"type": "section",
+		"text": {
+			"type": "mrkdwn",
+			"text": "*`/yeti team lfg [0/1]`*\nTurn on \"Looking-for-group\" mode. This lets other people find your team and join in! (OFF by default)"
+		}
+	});
+	response.blocks.push({
+		"type": "section",
+		"text": {
+			"type": "mrkdwn",
+			"text": "*`/yeti team dropin [0/1]`*\nTurn on \"drop-in\" mode. This means that you're OK with Pinnacle staff coming into the channel to check-in with your group. (ON by default)"
 		}
 	});
 	response.blocks.push({
@@ -118,7 +115,7 @@ module.exports = function(body, ...param) {
 		"text": {
 			"type": "plain_text",
 			"emoji": true,
-			"text": "Hi! Welcome to the Pinnacle Slack! Here are some commands to get you started"
+			"text": "Hi! Welcome to the Pinnacle Slack! I'm Yeti, the managing bot for Pinnacle Summer Events. For more information, check out my <https://docs.google.com/document/d/14PvaG-7rN88Dz8-Esjexc0UZdF_Ky7HV-s1y49Ffw2E/edit?usp=sharing|readme>! I'm still in beta, so be gentle with me! Here are some commands to get you started:"
 		}
 	});
 	print_divider(response);
@@ -129,6 +126,6 @@ module.exports = function(body, ...param) {
 		print_teamCommands(response);
 		print_divider(response);
 	}
-	print_supportCommands(response);
+	// print_supportCommands(response);
 	return response;
 };

@@ -174,7 +174,10 @@ class SlackBot {
 			if(process.env.BRANCH == "master" && !masterOpen) {
 				res.status(200);
 			}
-
+			if(body.type == "url_verification") {
+				res.send(body.challenge);
+				return;
+			}
 			var commandline = body.type;
 			var accept, reject;
 			var promise = new Promise(function(acc, rej) {
@@ -198,6 +201,54 @@ class SlackBot {
 		}
 		next();
 	}
+	generateTeamCard(team) {
+		//get member list
+		var memberList = "";
+		var numMembers = team.members.length;
+		for(var i = 0; i < numMembers; i++) {
+			membersList += "<@"+team.members[i]+">";
+			if(numMembers - 1 == i)
+				membersList += ", ";
+		}
+		var lfg = (team.lfg) ? "Enabled" : "Disabled";
+		var dropin = (team.dropin) ? "Enabled" : "Disabled";
+		var data = {
+			"blocks": [
+				{
+					"type": "section",
+					"text": {
+						"type": "mrkdwn",
+						"text": "Team Card:\n*"+team.title+"* - "+team.description
+					}
+				},
+				{
+					"type": "section",
+					"fields": [
+						{
+							"type": "mrkdwn",
+							"text": "*Technologies:*\n"+team.tech
+						},
+						{
+							"type": "mrkdwn",
+							"text": "*Looking-for-Group*:\n"+lfg
+						},
+						{
+							"type": "mrkdwn",
+							"text": "*Staff Drop-in*:\n"+dropin
+		                }
+					]
+				},
+				{
+					"type": "section",
+					"text": {
+						"type": "mrkdwn",
+						"text": "*Members*: "+memberList+" ("+numMembers+"/4)"
+					}
+				}
+			]
+		}
+		return data;
 
+	}
 }
 module.exports = SlackBot;

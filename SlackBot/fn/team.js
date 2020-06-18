@@ -18,15 +18,14 @@ module.exports = async function(body, ...param) {
 			var team = process.globals.teamChannels[thisUser.team];
 			var setting = param.shift()
 			if(setting == undefined || setting.trim() == "") {
-
 				var card = process.globals.slackref.generateTeamCard(team);
-
-				return "You must specify a setting -- `/yeti team [setting] [value]`";
+                return card;
+				//return "You must specify a setting -- `/yeti team [setting] [value]`";
 			}
 			setting.toLowerCase();
 			var value = param.join(' ').trim();
 			var valueRaw = value;
-			value = value.replace(/\W/g, '');
+			value = value.replace(/\W,;- /g, '');
 			var keysToSet = Object.keys(team);
 
 			if(value == "") {
