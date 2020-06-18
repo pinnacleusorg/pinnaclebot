@@ -203,7 +203,7 @@ class SlackBot {
 	}
 	generateTeamCard(team) {
 		//get member list
-		var memberList = "";
+		var membersList = "";
 		var numMembers = team.members.length;
 		for(var i = 0; i < numMembers; i++) {
 			membersList += "<@"+team.members[i]+">";
@@ -242,7 +242,7 @@ class SlackBot {
 					"type": "section",
 					"text": {
 						"type": "mrkdwn",
-						"text": "*Members*: "+memberList+" ("+numMembers+"/4)"
+						"text": "*Members*: "+membersList+" ("+numMembers+"/4)"
 					}
 				}
 			]
