@@ -13,7 +13,7 @@ module.exports = async function(body, ...param) {
 	for(var i = 0; i < lfgTeams.length; i++) {
 		var teamID = lfgTeams[i];
 		var team = process.globals.teamChannels[teamID];
-		if(team.title == "Untitled" && team.lfg && team.members.length > 0) {
+		if(team.title != "Untitled" && team.lfg && team.members.length > 0) {
 			teamList.push(teamID);
 		}
 	}
