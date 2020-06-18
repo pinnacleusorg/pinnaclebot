@@ -115,7 +115,7 @@ module.exports = function(body, ...param) {
 		"text": {
 			"type": "plain_text",
 			"emoji": true,
-			"text": "Hi! Welcome to the Pinnacle Slack! I'm Yeti, the managing bot for Pinnacle Summer Events. For more information, check out my <https://docs.google.com/document/d/14PvaG-7rN88Dz8-Esjexc0UZdF_Ky7HV-s1y49Ffw2E/edit?usp=sharing|readme>! I'm still in beta, so be gentle with me! Here are some commands to get you started:"
+			"text": "Hi! Welcome to the Pinnacle Slack! I'm Yeti, the managing bot for Pinnacle Summer Events. For more information, check out my <https://tinyurl.com/pinnaclebot|readme>! I'm still in beta, so be gentle with me! Here are some commands to get you started:"
 		}
 	});
 	print_divider(response);
