@@ -19,8 +19,7 @@ if(fs.existsSync('globals_'+process.env.BRANCH+'.json')) {
 }
 if(!process.globals) {
 	if(process.env.BRANCH == "master") {
-		process.globals.privilegedList = [''];
-		process.globals.privilegedList = [];
+		process.globals.privilegedList = ['U0146Q88V2N'];
 		process.globals.privilegedChannels = [''];
 		process.globals.welcomeChannel = '';
 		process.globals.userInfo = {};
@@ -33,8 +32,7 @@ if(!process.globals) {
 		process.globals.lfgList = [];
 	} else if(process.env.BRANCH == "development") {
 		process.globals.privilegedList = ['U013W1ST95H'];
-		process.globals.privilegedList = [];
-		process.globals.privilegedChannels = ['C015ABQTKRQ'];
+		process.globals.privilegedChannels = [];
 		process.globals.welcomeChannel = 'C0148E1BQGZ';
 		process.globals.userInfo = {};
 		process.globals.teamChannels = {};
