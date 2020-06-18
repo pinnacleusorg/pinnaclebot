@@ -43,12 +43,12 @@ module.exports = async function(body, ...param) {
 	thisUser.team = channelID;
 	process.globals.teamChannels[channelID] = {
 		"leader": body.user_id,
-		"title": "untitled",
-		"description": "",
-		"tech": "not set",
+		"title": "Untitled",
+		"description": "No description here yet ...",
+		"tech": " ",
 		"members": [body.user_id],
 		"pending": [],
-		"devpost": "not set",
+		"devpost": " ",
 		"lfg": false,
 		"dropin": true
 	};

@@ -47,7 +47,7 @@ module.exports = async function(body, ...param) {
 						return {response_type: 'in_channel', text: "<@"+body.user_id+">: Updated value for `"+setting+"` from `"+oldValue+"` to `"+value+"`." };
 
 					case "lfg":
-						var booleanValue = stringToBoolean(""+setting);
+						var booleanValue = stringToBoolean(""+value);
 						if(booleanValue != team[setting]) {
 							//UPDATE!
 							if(booleanValue) {
@@ -56,18 +56,21 @@ module.exports = async function(body, ...param) {
 								process.globals.lfgList.splice(process.globals.lfgList.indexOf(thisUser.team), 1);
 							}
 							team[setting] = booleanValue;
-							return {response_type: 'in_channel', text: "<@"+body.user_id+">: Updated value for `"+setting+"` from `"+oldValue+"` to `"+booleanValue+"`." };
 						}
+                        return {response_type: 'in_channel', text: "<@"+body.user_id+">: Updated value for `"+setting+"` from `"+oldValue+"` to `"+booleanValue+"`." };
 					break;
 
 					case "dropin":
-						if(!booleanValue) {
-							process.globals.nodropin.push(thisUser.team);
-						} else {
-							process.globals.nodropin.splice(process.globals.nodropin.indexOf(thisUser.team), 1);
-						}
-						team[setting] = booleanValue;
-						return {response_type: 'in_channel', text: "<@"+body.user_id+">: Updated value for `"+setting+"` from `"+oldValue+"` to `"+booleanValue+"`." };
+                        var booleanValue = stringToBoolean(""+value);
+                        if(booleanValue != team[setting]) {
+    						if(!booleanValue) {
+    							process.globals.nodropin.push(thisUser.team);
+    						} else {
+    							process.globals.nodropin.splice(process.globals.nodropin.indexOf(thisUser.team), 1);
+    						}
+    						team[setting] = booleanValue;
+                        }
+                        return {response_type: 'in_channel', text: "<@"+body.user_id+">: Updated value for `"+setting+"` from `"+oldValue+"` to `"+booleanValue+"`." };
 					break;
 
 					case "devpost":

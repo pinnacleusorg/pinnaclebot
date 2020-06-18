@@ -207,7 +207,7 @@ class SlackBot {
 		var numMembers = team.members.length;
 		for(var i = 0; i < numMembers; i++) {
 			membersList += "<@"+team.members[i]+">";
-			if(numMembers - 1 == i)
+			if(numMembers - 1 != i)
 				membersList += ", ";
 		}
 		var lfg = (team.lfg) ? "Enabled" : "Disabled";
