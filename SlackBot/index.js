@@ -244,7 +244,7 @@ class SlackBot {
 		                },
 						{
 							"type": "mrkdwn",
-							"text": "\n"+devpost
+							"text": " \n"+devpost
 		                }
 					]
 				},
