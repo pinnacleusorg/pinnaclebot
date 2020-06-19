@@ -2,6 +2,7 @@ module.exports = function(body, ...param) {
 	var slackref = process.globals.slackbot;
 	if(process.globals.privilegedList.includes(body.user_id)) {
 		var getUser = param[0].trim();
+		var url = getUser.split('<').pop().split('|')[0].trim().replace('>', '').replace('mailto', '');
 		if(getUser && getUser != "") {
 			//pre-reg
 			process.globals.preCheckin_list.push(getUser);
