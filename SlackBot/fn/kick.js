@@ -11,10 +11,9 @@ module.exports = async function(body, ...param) {
 				if(getUser && getUser != "") {
 					getUser = getUser.split('@').pop().split('|')[0].trim();
 					if(team.members.includes(getUser)) {
-						if(body.user_id == getUser) {
-
-							slackref.callMethod('chat.postMessage', {channel: channelID, text: "<@"+getUser+"> left the team."});
-							slackref.callMethod('conversations.kick', {channel: channelID, user: getUser});
+						if(body.user_id != getUser) {
+							slackref.callMethod('chat.postMessage', {channel: thisUser.team, text: "<@"+getUser+"> left the team."});
+							slackref.callMethod('conversations.kick', {channel: thisUser.team, user: getUser});
 							kickedUser = process.globals.userInfo[getUser];
 
 							kickedUser.team = false;
