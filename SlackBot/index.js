@@ -215,9 +215,9 @@ class SlackBot {
 		}
 		var lfg = (team.lfg) ? "Enabled" : "Disabled";
 		var dropin = (team.dropin) ? "Enabled" : "Disabled";
-		var devpost = "<"+team.devpost+"|Devpost Submission>";
+		var devpost = "<"+team.devpost+"|Link>";
 		if(!team.devpost || team.devpost.trim().length == 0)
-			devpost = "Devpost not submitted yet";
+			devpost = "Not yet submitted";
 		var data = {
 			"blocks": [
 				{
@@ -244,7 +244,7 @@ class SlackBot {
 		                },
 						{
 							"type": "mrkdwn",
-							"text": " \n"+devpost
+							"text": "*Devpost*\n"+devpost
 		                }
 					]
 				},
