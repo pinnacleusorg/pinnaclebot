@@ -1,7 +1,7 @@
 module.exports = function(body) {
 	console.log("Triggered member_joined_channel event");
 	console.log(body);
-	var thisUser = process.globals.userInfo[body.user_id];
+	var thisUser = process.globals.userInfo[body.event.user];
 	var slackref = process.globals.slackbot;
 	if(!thisUser || !thisUser.team || body.event.channel != thisUser.team) {
 		console.log(thisUser);
