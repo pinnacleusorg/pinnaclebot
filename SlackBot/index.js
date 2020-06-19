@@ -119,10 +119,10 @@ class SlackBot {
 		var fullSig = "v0=" + crypto.createHmac('sha256', this.token).update(sig).digest('hex');
 		if(crypto.timingSafeEqual(Buffer.from(fullSig), Buffer.from(req.header("X-Slack-Signature")))) {
 			//determine appropriate handler ...
-			if(process.env.BRANCH == "master" && !masterOpen) {
+			if(process.env.BRANCH == "master" && !this.masterOpen) {
 				var dateDelta = new Date() - new Date('2020-06-20');
 				if(dateDelta > 0)
-					masterOpen = true;
+					this.masterOpen = true;
 				else {
 					if(!process.globals.privilegedList.includes(body.user_id)) {
 						res.send("Hello! Unfortunately, I cannot accept commands right now, until Everest begins. Everest will open at 5PM PDT on 6/19.")
@@ -173,7 +173,7 @@ class SlackBot {
 		if(crypto.timingSafeEqual(Buffer.from(fullSig), Buffer.from(req.header("X-Slack-Signature")))) {
 			//determine appropriate handler ...
 
-			if(process.env.BRANCH == "master" && !masterOpen) {
+			if(process.env.BRANCH == "master" && !this.masterOpen) {
 				res.status(200);
 				return;
 			}
