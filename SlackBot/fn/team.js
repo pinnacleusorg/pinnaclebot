@@ -82,12 +82,12 @@ module.exports = async function(body, ...param) {
                         var url = value.split('<').pop().split('|')[0].trim().replace('>', '');
 
 						if(validateUrl(url)) {
-							if(url.indexOf("https://pinnacle.devpost.com") == 0) { //TODO: validate this better?
+							if(url.indexOf("https://devpost.com/software/") == 0) { //TODO: validate this better?
 								team[setting] = url;
 								return {response_type: 'in_channel', text: "<@"+body.user_id+">: Updated value for `"+setting+"` to `"+value+"`." };
 							}
 						}
-						return "That is not a valid URL!";
+						return "That is not a valid URL! It should look like `https://devpost.com/software/your-cool-project`;
 					break;
 
 					default:
