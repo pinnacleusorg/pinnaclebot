@@ -57,7 +57,7 @@ module.exports = async function(body, ...param) {
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": (i+1)+". <@"+team.leader+">'s '*"+teamName+"* - "+truncatedDesc+"\nJoin: `/yeti join "+teamList[i]+"` ("+num+"/4 members)"
+				"text": (i+1)+". <@"+team.leader+">'s *"+teamName+"* - "+truncatedDesc+"\nJoin: `/yeti join "+teamList[i]+"` ("+num+"/4 members)"
 			}
 		});
 	}
