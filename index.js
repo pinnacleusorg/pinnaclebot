@@ -27,7 +27,7 @@ if(!process.globals) {
 		process.globals.userInfo = {};
 		process.globals.teamChannels = {};
 
-		// process.globals.preCheckin_list;
+		process.globals.preCheckin_list = [];
 		process.globals.pendingInvites = {};
 
 		process.globals.nodropin = [];
