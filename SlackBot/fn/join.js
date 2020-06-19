@@ -22,9 +22,10 @@ module.exports = async function(body, ...param) {
 						return "OK, I've added you into the team room - happy hacking!";
 					}
 					//make sure they're not in LFG if they're full ...
-
-					team.lfg = false;
-					process.globals.lfgList.splice(process.globals.lfgList.indexOf(thisUser.team), 1);
+					if(process.globals.lfgList.indexOf(param[0]) != -1) {
+						team.lfg = false;
+						process.globals.lfgList.splice(process.globals.lfgList.indexOf(param[0]), 1);
+					}
 
 					return "Sorry, that team is full, so you can't drop in anymore."
 				}
