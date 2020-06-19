@@ -10,8 +10,10 @@ module.exports = function(body, ...param) {
 			//ok, leave team ...
 			if(team.members.length > 1) {
 				slackref.callMethod('chat.postMessage', {channel: channelID, text: "<@"+body.user_id+"> left the team."});
+				slackref.callMethod('conversations.kick', {channel: channelID, user: body.user_id});
+			} else {
+				slackref.callMethod('conversations.archive', {channel: channelID});
 			}
-			slackref.callMethod('conversations.kick', {channel: channelID, user: body.user_id});
 			var channelID = thisUser.team;
 			thisUser.team = false;
 			team.members.splice(team.members.indexOf(body.user_id), 1);
