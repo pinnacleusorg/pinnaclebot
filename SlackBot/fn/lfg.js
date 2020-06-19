@@ -13,7 +13,7 @@ module.exports = async function(body, ...param) {
 	for(var i = 0; i < lfgTeams.length; i++) {
 		var teamID = lfgTeams[i];
 		var team = process.globals.teamChannels[teamID];
-		if(team && team.title != "Untitled" && team.lfg && team.members.length > 0) {
+		if(team && team.lfg && team.members.length > 0) {
 			teamList.push(teamID);
 		}
 	}
@@ -32,7 +32,7 @@ module.exports = async function(body, ...param) {
 				"type": "divider"
 			}
 		]
-	}
+	};
 	if(teamList.length == 0) {
 		result.blocks.push({
 			"type": "section",
