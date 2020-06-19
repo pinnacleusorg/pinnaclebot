@@ -8,16 +8,16 @@ module.exports = async function(body, ...param) {
 				if(team.lfg) {
 					if(team.members.length < 4) {
 						//invitation isn't invalid, team isn't full. we should be able to add this user.
+						thisUser.team = param[0];
+						team.members.push(body.user_id);
+						if(team.pending.indexOf(body.user_id) != -1)
+							team.pending.splice(team.pending.indexOf(body.user_id), 1);
+
 						var waitForInvite = new Promise(function(resolve, rej) {
 							slackref.callMethod('conversations.invite', {channel: param[0], users: body.user_id }, resolve);
 						});
 						await waitForInvite;
 						slackref.callMethod('chat.postMessage', {channel: param[0], text: "<!channel>: <@"+body.user_id+"> has joined the team (drop-in)!" });
-
-						thisUser.team = param[0];
-						team.members.push(body.user_id);
-						if(team.pending.indexOf(body.user_id) != -1)
-							team.pending.splice(team.pending.indexOf(body.user_id), 1);
 
 						return "OK, I've added you into the team room - happy hacking!";
 					}

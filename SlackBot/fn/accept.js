@@ -11,15 +11,16 @@ module.exports = async function(body, ...param) {
 				var team = process.globals.teamChannels[forChannel];
 				if(team.members.length < 4) {
 					//invitation isn't invalid, team isn't full. we should be able to add this user.
+					thisUser.team = forChannel;
+					team.members.push(body.user_id);
+					team.pending.splice(team.pending.indexOf(body.user_id), 1);
+
 					var waitForInvite = new Promise(function(resolve, rej) {
 						slackref.callMethod('conversations.invite', {channel: forChannel, users: body.user_id }, resolve);
 					});
 					await waitForInvite;
 					slackref.callMethod('chat.postMessage', {channel: forChannel, text: "<!channel>: <@"+body.user_id+"> has joined the team!" });
 
-					thisUser.team = forChannel;
-					team.members.push(body.user_id);
-					team.pending.splice(team.pending.indexOf(body.user_id), 1);
 
 					process.globals.pendingInvites[param[0]] = false;
 
