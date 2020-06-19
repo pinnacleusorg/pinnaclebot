@@ -4,7 +4,7 @@ module.exports = function(body, ...param) {
 		var getUser = param[0]; //parse string ...
 		if(getUser && getUser != "") {
 			var userString = getUser.split('@').pop().split('|')[0].trim();
-			if(userString != "" && process.globals.userInfo.includes(userString)) {
+			if(userString != "" && Object.keys(process.globals.userInfo).includes(userString)) {
 				return "```\n"+JSON.stringify(process.globals.userInfo[userString], null, 2)+"\n```";
 			}
 			//otherwise, assume team
