@@ -38,7 +38,7 @@ module.exports = async function(body, ...param) {
 	});
 	await waitForInvite;
 	slackref.callMethod('chat.postMessage', {channel: channelID, text: "Welcome to your team channel! Use `/yeti help` to get started here. To invite your team members, do `/yeti invite @name`."});
-
+	slackref.callMethod('conversations.setTopic', {channel: channelID, topic: "Team Room - Get started setting up your room with `/yeti team [setting] [value]`. See `/yeti help` for more information. For video calling, you can call in here: https://meet.jit.si/pinnacle2020-"+channelID});
 	//Store metadata ...
 	thisUser.team = channelID;
 	process.globals.teamChannels[channelID] = {

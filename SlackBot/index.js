@@ -122,10 +122,12 @@ class SlackBot {
 			if(process.env.BRANCH == "master" && !masterOpen) {
 				var dateDelta = new Date() - new Date('2020-06-20');
 				if(dateDelta > 0)
-					masterOpen = true
+					masterOpen = true;
 				else {
-					res.send("Hello! Unfortunately, I cannot accept commands right now, until Everest begins. Everest will open at 5PM PDT on 6/19.")
-					return;
+					if(!process.globals.privilegedList.includes(body.user_id)) {
+						res.send("Hello! Unfortunately, I cannot accept commands right now, until Everest begins. Everest will open at 5PM PDT on 6/19.")
+						return;
+					}
 				}
 			}
 
@@ -173,6 +175,7 @@ class SlackBot {
 
 			if(process.env.BRANCH == "master" && !masterOpen) {
 				res.status(200);
+				return;
 			}
 			if(body.type == "url_verification") {
 				res.send(body.challenge);
