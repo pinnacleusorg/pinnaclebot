@@ -5,7 +5,7 @@ module.exports = function(body, ...param) {
 		if(getUser && getUser != "") {
 			var userString = getUser.split('@').pop().split('|')[0].trim();
 			var team = false;
-			if(userString != "" && process.globals.userInfo.includes(userString)) {
+			if(userString != "" && Object.keys(process.globals.userInfo).includes(userString)) {
 				team = process.globals.teamChannels[process.globals.userInfo[getUser].team];
 			}
 			else if(process.globals.teamChannels.includes(getUser)) {
