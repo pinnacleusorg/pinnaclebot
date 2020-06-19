@@ -10,7 +10,7 @@ function print_generalCommands(response) {
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*`/yeti help`*\nPrints out this dialogue."
+			"text": "*`/yeti checkin`*\nCheck in to register your account before doing anything else!"
 		}
 	});
 	response.blocks.push({
