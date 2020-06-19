@@ -173,12 +173,12 @@ class SlackBot {
 		if(crypto.timingSafeEqual(Buffer.from(fullSig), Buffer.from(req.header("X-Slack-Signature")))) {
 			//determine appropriate handler ...
 
-			if(process.env.BRANCH == "master" && !this.masterOpen) {
-				res.status(200);
-				return;
-			}
 			if(body.type == "url_verification") {
 				res.send(body.challenge);
+				return;
+			}
+			if(process.env.BRANCH == "master" && !this.masterOpen) {
+				res.status(200);
 				return;
 			}
 			var commandline = body.type;
