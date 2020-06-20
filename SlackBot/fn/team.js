@@ -87,7 +87,7 @@ module.exports = async function(body, ...param) {
 								return {response_type: 'in_channel', text: "<@"+body.user_id+">: Updated value for `"+setting+"` to `"+value+"`." };
 							}
 						}
-						return "That is not a valid URL! It should look like `https://devpost.com/software/your-cool-project`;
+						return "That is not a valid URL! It should look like `https://devpost.com/software/your-cool-project`";
 					break;
 
 					default:
