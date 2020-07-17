@@ -1,3 +1,4 @@
+//When leaving a channel that is your team, this event will trigger the /leave command steps.
 module.exports = async function(body) {
 	var slackref = process.globals.slackbot;
 	console.log("Triggered member_left_channel event");

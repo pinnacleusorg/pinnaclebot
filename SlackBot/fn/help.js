@@ -1,3 +1,4 @@
+//This command, /help, will display a series of help blocks to the user with example commands.
 function print_generalCommands(response) {
 	response.blocks.push({
 		"type": "section",

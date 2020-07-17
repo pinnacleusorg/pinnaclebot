@@ -1,5 +1,4 @@
-const crypto = require('crypto');
-
+//This command, /setowner [@user], will allow the current owner of a team to set a new owner.
 module.exports = async function(body, ...param) {
 	var slackref = process.globals.slackbot;
 	var thisUser = process.globals.userInfo[body.user_id];

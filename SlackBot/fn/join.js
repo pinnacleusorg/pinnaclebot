@@ -1,3 +1,4 @@
+//this command, /join [teamid], will allow a standard user to "drop in" on an LFG team.
 module.exports = async function(body, ...param) {
 	var slackref = process.globals.slackbot;
 	var team = process.globals.teamChannels[param[0]];

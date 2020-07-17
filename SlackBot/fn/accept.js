@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+//This function, /accept [inviteid], will allow a user to accept an invitation to a team.
 
 module.exports = async function(body, ...param) {
 	var slackref = process.globals.slackbot;

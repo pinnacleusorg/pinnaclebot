@@ -1,3 +1,4 @@
+//this command, /card [@user], will allow an admin to generate a team card for any user's team, or any team id.
 module.exports = function(body, ...param) {
 	var slackref = process.globals.slackbot;
 	if(process.globals.privilegedList.includes(body.user_id)) {

@@ -1,3 +1,5 @@
+//this command, /kick [@user], will allow the owner of a team to remove users from their team.
+
 const crypto = require('crypto');
 
 module.exports = async function(body, ...param) {

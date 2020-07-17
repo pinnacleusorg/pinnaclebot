@@ -1,6 +1,7 @@
+// This command, /admin [@user], will allow a user to promote / demote a user's admin status.
 module.exports = function(body, ...param) {
 	var slackref = process.globals.slackbot;
-	if(process.globals.privilegedList.includes(body.user_id)) {
+	if(process.globals.privilegedList.includes(body.user_id)) { //TODO: maybe gate this on a higher level??
 		//we are an admin using this command ... admin the target!
 		var getUser = param[0]; //parse string ...
 		if(getUser && getUser != "") {

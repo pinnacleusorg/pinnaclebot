@@ -1,3 +1,5 @@
+//this command, /team [setting] [value], will allow users in a team to change different team parameters.
+
 //https://stackoverflow.com/questions/263965/how-can-i-convert-a-string-to-boolean-in-javascript
 function stringToBoolean(value) {
     switch(value.toLowerCase().trim()){

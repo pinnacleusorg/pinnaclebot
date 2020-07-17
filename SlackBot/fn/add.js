@@ -1,3 +1,4 @@
+//This function, /add [@user], will allow a staff member to join a team room by force. 
 module.exports = async function(body, ...param) {
 	var slackref = process.globals.slackbot;
 	var team = process.globals.teamChannels[param[0]];
@@ -14,5 +15,5 @@ module.exports = async function(body, ...param) {
 			return "OK, I've added you into the team room - happy hacking!";
 		}
 	}
-	return "You don't seem to be checked in ... can you do `/yeti checkin` first?";
+	return "No access to this command!";
 };

@@ -1,3 +1,5 @@
+//this command, /checkin, will match a user's email registration to their Slack account.
+
 module.exports = async function(body, ...param) {
 	//User is checking in. Let's verify a few things ...
 	var slackref = process.globals.slackbot;

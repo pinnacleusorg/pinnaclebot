@@ -1,17 +1,14 @@
 const express = require('express');
 const fs = require('fs');
 const SlackBot = require('./SlackBot');
-const GithubCI = require('./GithubCI');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
-const app = express()
+const app = express();
 const port = process.env.PORT
 
 var thisParser = new SlackBot(process.env.SLACK_TOKEN, process.env.SLACK_OAUTH, process.env.SLACK_ADMIN);
-// var thisGithub = new GithubCI(process.env.GITHUB_SECRET);
 
-//Define Globals
-
+//ideally, our globals would be on something that is thread-safe and not in-memory. TODO: fix!
 if(fs.existsSync('globals_'+process.env.BRANCH+'.json')) {
 	process.globals = JSON.parse(fs.readFileSync('globals_'+process.env.BRANCH+'.json'));
 	process.globals.slackbot = thisParser;
@@ -49,6 +46,7 @@ if(!process.globals) {
 	process.globals.slackbot = thisParser;
 }
 
+//Regularly save our globals to file
 setInterval(function() {
 	//save globals to file ...
 	console.log("Doing save ...");
@@ -63,6 +61,7 @@ setInterval(function() {
 	});
 }, 60 * 1000);
 
+//When we exit our script, make sure we perform a save.
 function exitHandler(options, exitCode) {
     if (options.cleanup) {
 		console.log("Going down, saving ...");
@@ -73,20 +72,20 @@ function exitHandler(options, exitCode) {
 	}
     if (options.exit) process.exit();
 }
-
 process.on('exit', exitHandler.bind(null,{cleanup:true}));
-
 process.on('SIGINT', exitHandler.bind(null, {exit:true}));
 process.on('SIGUSR1', exitHandler.bind(null, {exit:true}));
 process.on('SIGUSR2', exitHandler.bind(null, {exit:true}));
 process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
 
 
-//slack has a very cool api
+
+// Handle for Slack slash commands -- these are URL Encoded
 app.use('/handle', bodyParser.urlencoded({ extended: true, verify: (req, res, buf) => {
 	req.rawBody = buf;
 } }));
 
+// Event for Slack reported events -- these are JSON encoded.
 app.use('/event', bodyParser.json({ verify: (req, res, buf) => {
 	req.rawBody = buf;
 } }));
@@ -95,8 +94,8 @@ app.use('/event', bodyParser.json({ verify: (req, res, buf) => {
 
 app.use('/handle', thisParser.parse);
 app.use('/event', thisParser.eventParse);
-// app.use('/git', thisGithub.parse);
 
+//what index??? we don't exist.
 app.get('/', (req, res) => res.sendStatus(404))
 
-app.listen(port, () => console.log(`Listening at http://localhost:${port}`))
+app.listen(port, () => console.log(`Listening at ${port}`))

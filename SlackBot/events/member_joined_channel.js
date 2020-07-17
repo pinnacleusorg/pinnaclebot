@@ -1,3 +1,4 @@
+//This event listener will try to notify a user that just because they joined a channel doesn't mean they're in a team.
 module.exports = function(body) {
 	console.log("Triggered member_joined_channel event");
 	console.log(body);

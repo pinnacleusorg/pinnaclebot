@@ -1,3 +1,4 @@
+//This command, /invite [@user], will allow you to invite a specific user and generate an invitation message.
 const crypto = require('crypto');
 
 module.exports = async function(body, ...param) {

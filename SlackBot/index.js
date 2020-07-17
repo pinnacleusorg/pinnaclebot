@@ -13,13 +13,16 @@ class SlackBot {
 		this.token = token;
 		this.oauth = oauth;
 		this.oauth_admin = oauth_admin;
-		//register handlers ...
+
+		//Register all handlers from /fn/
 		var normalizedPath = require("path").join(__dirname, "fn");
 		fs.readdirSync(normalizedPath).forEach(function(file) {
   			var thisFn = require("./fn/" + file);
  			//register
 			thisMap.addHandler(file.split('.')[0], thisFn);
 		});
+
+		//Register all events from /events/
 		normalizedPath = require("path").join(__dirname, "events");
 		fs.readdirSync(normalizedPath).forEach(function(file) {
   			var thisFn = require("./events/" + file);
@@ -31,7 +34,7 @@ class SlackBot {
 
 	handlers = {};
 	eventHandlers = {};
-	masterOpen = false;
+	masterOpen = false; // for disabling bot until a certain time
 
 	addHandler(fn, method) {
 		this.handlers[fn] = method;
@@ -39,7 +42,8 @@ class SlackBot {
 	addEvent(fn, method) {
 		this.eventHandlers[fn] = method;
 	}
-	//when he realizes that he needs to handle another endpoint and adds some incredibly DRY code
+
+	//process these async if necessary ...
 	async callHandler(pr_acc, pr_rej, body, fn, ...param) {
 		param.unshift(body);
 		fn = fn.toLowerCase();
@@ -54,6 +58,7 @@ class SlackBot {
 		}
 	}
 
+	//these could be async if necessary? but their responses don't matter so.. you can return early from the requests
 	callEvent(pr_acc, pr_rej, body, fn) {
 		fn = fn.toLowerCase();
 		if(fn in this.eventHandlers) {
@@ -63,11 +68,12 @@ class SlackBot {
 		}
 	}
 
+	//call specific API method in slack api
 	callMethod(methodName, parameters, resolve = "") {
 		//make a query with the Slack API ...
 		console.log("Calling "+methodName+" with parameters", parameters);
-		var sudoCmds = ['chat.delete'];
-		var stupidCmds = ['users.info'];
+		var sudoCmds = ['chat.delete']; //commands that are performed with the admin OAuth token
+		var stupidCmds = ['users.info']; //commands that decide to be stupid and require URL encoded parameters even though everything else is json required
 		var token = this.oauth;
 		if(sudoCmds.includes(methodName)) {
 			token = this.oauth_admin;
@@ -109,6 +115,7 @@ class SlackBot {
 		}
 	}
 
+	//handle all slash commands
 	parse(req, res, next) {
 		//verify token ...
 		var body = req.body;
@@ -120,7 +127,7 @@ class SlackBot {
 		if(crypto.timingSafeEqual(Buffer.from(fullSig), Buffer.from(req.header("X-Slack-Signature")))) {
 			//determine appropriate handler ...
 			if(process.env.BRANCH == "master" && !this.masterOpen) {
-				var dateDelta = new Date() - new Date('2020-06-20');
+				var dateDelta = new Date() - new Date('2020-06-20'); // TODO: break out into env? adjust so it's valid
 				if(dateDelta > 0)
 					this.masterOpen = true;
 				else {
@@ -162,6 +169,7 @@ class SlackBot {
 		}
 		next();
 	}
+	//incredible code reuse. as above but for handling events ...
 	eventParse(req, res, next) {
 		//verify token ...
 		var body = req.body;
@@ -173,7 +181,7 @@ class SlackBot {
 		if(crypto.timingSafeEqual(Buffer.from(fullSig), Buffer.from(req.header("X-Slack-Signature")))) {
 			//determine appropriate handler ...
 
-			if(body.type == "url_verification") {
+			if(body.type == "url_verification") { //when first verifying your event handler, this is required
 				res.send(body.challenge);
 				return;
 			}
@@ -204,6 +212,8 @@ class SlackBot {
 		}
 		next();
 	}
+
+	//generate the team info card styling
 	generateTeamCard(team) {
 		//get member list
 		var membersList = "";

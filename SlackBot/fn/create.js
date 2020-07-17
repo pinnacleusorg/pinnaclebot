@@ -1,3 +1,4 @@
+// this command, /create, will generate a new team room for a user who is not currently in a team room.
 const crypto = require('crypto');
 
 module.exports = async function(body, ...param) {

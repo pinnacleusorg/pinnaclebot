@@ -1,3 +1,4 @@
+//this minecraft command, /saveall, will allow admins to force an immediate save to disk.
 const fs = require('fs');
 module.exports = function(body, ...param) {
 	//save globals to file ...

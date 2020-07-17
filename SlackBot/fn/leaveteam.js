@@ -1,5 +1,4 @@
-const crypto = require('crypto');
-
+//this command, /leaveteam, will allow a user to selectively leave their own team.
 module.exports = function(body, ...param) {
 	var slackref = process.globals.slackbot;
 	var invitationID = process.globals.pendingInvites[param[0]];

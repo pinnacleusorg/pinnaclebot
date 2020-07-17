@@ -1,3 +1,4 @@
+//this debug tool, /lookup [@user / teamid], will allow an admin to get the JSON data blob for a team or player.
 module.exports = function(body, ...param) {
 	var slackref = process.globals.slackbot;
 	if(process.globals.privilegedList.includes(body.user_id)) {
